@@ -1,6 +1,6 @@
 module github.com/wingkwong/bootstrap-cli
 
-go 1.17
+go 1.19
 
 require (
 	github.com/charmbracelet/bubbles v0.15.0
