@@ -20,9 +20,13 @@ var (
 	quitTextStyle     = lipgloss.NewStyle().Margin(1, 0, 2, 4)
 )
 
-type item string
+type item struct {
+	title, desc string
+}
 
-func (i item) FilterValue() string { return "" }
+func (i item) Title() string       { return i.title }
+func (i item) Description() string { return i.desc }
+func (i item) FilterValue() string { return i.title }
 
 type itemDelegate struct{}
 
@@ -66,9 +70,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch keypress := msg.String(); keypress {
 		case "enter":
-			i, ok := m.list.SelectedItem().(item)
+			item, ok := m.list.SelectedItem().(item)
 			if ok {
-				m.choice = string(i)
+				m.choice = item.title
 			}
 			return m, nil
 		}
@@ -91,20 +95,19 @@ func (m model) View() string {
 
 func New() tea.Model {
 	items := []list.Item{
-		item("vue"),
-		item("vue-ts"),
-		item("react"),
-		item("react-ts"),
-		item("next"),
-		item("next-ts"),
-		item("nuxt3"),
-		item("vanilla"),
-		item("vanilla-ts"),
-		item("gatsby"),
-		item("gatsby-ts"),
+		item{title: "vue", desc: "Generate Vue.js App Template"},
+		item{title: "vue-ts", desc: "Generate Vue.js App Template in TypeScript"},
+		item{title: "react", desc: "Generate React App Template"},
+		item{title: "react-ts", desc: "Generate React App Template in TypeScript"},
+		item{title: "next", desc: "Generate Next.js App Template"},
+		item{title: "next-ts", desc: "Generate Next.js App Template in TypeScript"},
+		item{title: "vanilla", desc: "Generate Vanilla.js App Template"},
+		item{title: "vanilla-ts", desc: "Generate Vanilla.js App Template in TypeScript"},
+		item{title: "gatsby", desc: "Generate Gatsby App Template in TypeScript"},
+		item{title: "gatsby-ts", desc: "Generate Gatsby App Template in TypeScript"},
 	}
 	const defaultWidth = 20
-	l := list.New(items, itemDelegate{}, defaultWidth, listHeight)
+	l := list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
 	l.Title = "Here's the available Templates."
 	l.SetShowStatusBar(false)
 	l.SetFilteringEnabled(true)
