@@ -7,6 +7,7 @@ import (
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+	_common "github.com/wingkwong/bootstrap-cli/internal/common"
 )
 
 const listHeight = 20
@@ -93,26 +94,46 @@ func (b Bubble) View() string {
 	return "\n" + b.list.View()
 }
 
-func New() Bubble {
-	items := []list.Item{
-		item{title: "vue", desc: "Generate Vue.js App Template"},
-		item{title: "vue-ts", desc: "Generate Vue.js App Template in TypeScript"},
-		item{title: "react", desc: "Generate React App Template"},
-		item{title: "react-ts", desc: "Generate React App Template in TypeScript"},
-		item{title: "next", desc: "Generate Next.js App Template"},
-		item{title: "next-ts", desc: "Generate Next.js App Template in TypeScript"},
-		item{title: "vanilla", desc: "Generate Vanilla.js App Template"},
-		item{title: "vanilla-ts", desc: "Generate Vanilla.js App Template in TypeScript"},
-		item{title: "gatsby", desc: "Generate Gatsby App Template in TypeScript"},
-		item{title: "gatsby-ts", desc: "Generate Gatsby App Template in TypeScript"},
-	}
+func New(listType string) Bubble {
 	const defaultWidth = 20
-	l := list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
-	l.Title = "Here's the available Templates."
+	var l list.Model
+	switch listType {
+	case _common.NAVIGATION_TEMPLATE_LIST:
+		items := []list.Item{
+			item{title: "Frontend Frameworks", desc: "Explore Frontend Framework Templates"},
+			item{title: "Backend Frameworks", desc: "Explore Backend Framework Templates"},
+			item{title: "Kubernetes", desc: "Explore Kubernetes Templates"},
+			item{title: "Docker", desc: "Explore Dockerfile"},
+		}
+		l = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
+		l.Title = ""
+	case _common.FRONTEND_TEMPLATE_LIST:
+		items := []list.Item{
+			item{title: "vue", desc: "Generate Vue.js App Template"},
+			item{title: "vue-ts", desc: "Generate Vue.js App Template in TypeScript"},
+			item{title: "react", desc: "Generate React App Template"},
+			item{title: "react-ts", desc: "Generate React App Template in TypeScript"},
+			item{title: "next", desc: "Generate Next.js App Template"},
+			item{title: "next-ts", desc: "Generate Next.js App Template in TypeScript"},
+			item{title: "vanilla", desc: "Generate Vanilla.js App Template"},
+			item{title: "vanilla-ts", desc: "Generate Vanilla.js App Template in TypeScript"},
+			item{title: "gatsby", desc: "Generate Gatsby App Template in TypeScript"},
+			item{title: "gatsby-ts", desc: "Generate Gatsby App Template in TypeScript"},
+		}
+		l = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
+		l.Title = "Here's the available Templates."
+
+	case _common.BACKEND_TEMPLATE_LIST:
+		items := []list.Item{}
+		l = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
+		l.Title = "Here's the available Templates."
+	}
+
 	l.SetShowStatusBar(false)
 	l.SetFilteringEnabled(true)
 	l.Styles.Title = titleStyle
 	l.Styles.PaginationStyle = paginationStyle
 	l.Styles.HelpStyle = helpStyle
+
 	return Bubble{list: l}
 }
