@@ -6,10 +6,12 @@ import (
 
 func (m Bubble) View() string {
 	navigationList := m.navigationList.View()
-	templateList := m.frontendTemplateList.View()
+	templateList := ""
 
 	switch m.state {
-	case showBackendTemplateList:
+	case frontendTemplateListState:
+		templateList = m.frontendTemplateList.View()
+	case backendTemplateListState:
 		templateList = m.backendTemplateList.View()
 	}
 
