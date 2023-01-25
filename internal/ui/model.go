@@ -1,13 +1,17 @@
 package ui
 
-import "github.com/wingkwong/bootstrap-cli/internal/ui/list"
+import (
+	_common "github.com/wingkwong/bootstrap-cli/internal/common"
+	"github.com/wingkwong/bootstrap-cli/internal/ui/list"
+)
 
 type sessionState int
 
 const (
 	idleState sessionState = iota
-	showFrontendTemplateList
-	showBackendTemplateList
+	navigationListState
+	frontendTemplateListState
+	backendTemplateListState
 )
 
 type Bubble struct {
@@ -19,11 +23,11 @@ type Bubble struct {
 
 func New() Bubble {
 	// navigationList
-	navigationListModel := list.New()
+	navigationListModel := list.New(_common.NAVIGATION_TEMPLATE_LIST)
 	// frontendTemplateList
-	frontendTemplateListModel := list.New()
+	frontendTemplateListModel := list.New(_common.FRONTEND_TEMPLATE_LIST)
 	// backendTemplateList
-	backendTemplateListModel := list.New()
+	backendTemplateListModel := list.New(_common.BACKEND_TEMPLATE_LIST)
 
 	return Bubble{
 		navigationList:       navigationListModel,
