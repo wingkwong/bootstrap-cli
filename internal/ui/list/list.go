@@ -21,13 +21,13 @@ var (
 	quitTextStyle     = lipgloss.NewStyle().Margin(1, 0, 2, 4)
 )
 
-type item struct {
+type Item struct {
 	title, desc string
 }
 
-func (i item) Title() string       { return i.title }
-func (i item) Description() string { return i.desc }
-func (i item) FilterValue() string { return i.title }
+func (i Item) Title() string       { return i.title }
+func (i Item) Description() string { return i.desc }
+func (i Item) FilterValue() string { return i.title }
 
 type itemDelegate struct{}
 
@@ -35,7 +35,7 @@ func (d itemDelegate) Height() int                               { return 1 }
 func (d itemDelegate) Spacing() int                              { return 0 }
 func (d itemDelegate) Update(msg tea.Msg, m *list.Model) tea.Cmd { return nil }
 func (d itemDelegate) Render(w io.Writer, m list.Model, index int, listItem list.Item) {
-	i, ok := listItem.(item)
+	i, ok := listItem.(Item)
 	if !ok {
 		return
 	}
@@ -53,13 +53,19 @@ func (d itemDelegate) Render(w io.Writer, m list.Model, index int, listItem list
 }
 
 type Bubble struct {
-	list     list.Model
-	choice   string
-	quitting bool
+	list list.Model
 }
 
 func (b Bubble) Init() tea.Cmd {
 	return nil
+}
+
+func (b Bubble) GetSelectedItem() Item {
+	item, ok := b.list.SelectedItem().(Item)
+	if ok {
+		return item
+	}
+	return Item{}
 }
 
 func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
@@ -67,30 +73,15 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 	case tea.WindowSizeMsg:
 		b.list.SetWidth(msg.Width)
 		return b, nil
-
-	case tea.KeyMsg:
-		switch keypress := msg.String(); keypress {
-		case "enter":
-			item, ok := b.list.SelectedItem().(item)
-			if ok {
-				b.choice = item.title
-			}
-			return b, nil
-		}
 	}
 
 	var cmd tea.Cmd
 	b.list, cmd = b.list.Update(msg)
+
 	return b, cmd
 }
 
 func (b Bubble) View() string {
-	if b.choice != "" {
-		return quitTextStyle.Render(fmt.Sprintf("%s? Sounds good to me.", b.choice))
-	}
-	if b.quitting {
-		return quitTextStyle.Render("Quitting? That’s cool.")
-	}
 	return "\n" + b.list.View()
 }
 
@@ -100,25 +91,25 @@ func New(listType string) Bubble {
 	switch listType {
 	case _common.NAVIGATION_TEMPLATE_LIST:
 		items := []list.Item{
-			item{title: "Frontend Frameworks", desc: "Explore Frontend Framework Templates"},
-			item{title: "Backend Frameworks", desc: "Explore Backend Framework Templates"},
-			item{title: "Kubernetes", desc: "Explore Kubernetes Templates"},
-			item{title: "Docker", desc: "Explore Dockerfile"},
+			Item{title: _common.FRONTEND_FRAMEWORKS, desc: _common.FRONTEND_FRAMEWORKS_DESC},
+			Item{title: _common.BACKEND_FRAMEWORKS, desc: _common.BACKEND_FRAMEWORKS_DESC},
+			Item{title: _common.KUBERNETES_FRAMEWORKS, desc: _common.KUBERNETES_FRAMEWORKS_DESC},
+			Item{title: _common.DOCKER_FRAMEWORKS, desc: _common.DOCKER_FRAMEWORKS_DESC},
 		}
 		l = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
 		l.Title = ""
 	case _common.FRONTEND_TEMPLATE_LIST:
 		items := []list.Item{
-			item{title: "vue", desc: "Generate Vue.js App Template"},
-			item{title: "vue-ts", desc: "Generate Vue.js App Template in TypeScript"},
-			item{title: "react", desc: "Generate React App Template"},
-			item{title: "react-ts", desc: "Generate React App Template in TypeScript"},
-			item{title: "next", desc: "Generate Next.js App Template"},
-			item{title: "next-ts", desc: "Generate Next.js App Template in TypeScript"},
-			item{title: "vanilla", desc: "Generate Vanilla.js App Template"},
-			item{title: "vanilla-ts", desc: "Generate Vanilla.js App Template in TypeScript"},
-			item{title: "gatsby", desc: "Generate Gatsby App Template in TypeScript"},
-			item{title: "gatsby-ts", desc: "Generate Gatsby App Template in TypeScript"},
+			Item{title: "vue", desc: "Generate Vue.js App Template"},
+			Item{title: "vue-ts", desc: "Generate Vue.js App Template in TypeScript"},
+			Item{title: "react", desc: "Generate React App Template"},
+			Item{title: "react-ts", desc: "Generate React App Template in TypeScript"},
+			Item{title: "next", desc: "Generate Next.js App Template"},
+			Item{title: "next-ts", desc: "Generate Next.js App Template in TypeScript"},
+			Item{title: "vanilla", desc: "Generate Vanilla.js App Template"},
+			Item{title: "vanilla-ts", desc: "Generate Vanilla.js App Template in TypeScript"},
+			Item{title: "gatsby", desc: "Generate Gatsby App Template in TypeScript"},
+			Item{title: "gatsby-ts", desc: "Generate Gatsby App Template in TypeScript"},
 		}
 		l = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
 		l.Title = "Here's the available Templates."
