@@ -9,7 +9,6 @@ type sessionState int
 
 const (
 	idleState sessionState = iota
-	navigationListState
 	frontendTemplateListState
 	backendTemplateListState
 )
@@ -19,6 +18,7 @@ type Bubble struct {
 	frontendTemplateList list.Bubble
 	backendTemplateList  list.Bubble
 	state                sessionState
+	keys                 KeyMap
 }
 
 func New() Bubble {
