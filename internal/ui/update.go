@@ -5,9 +5,10 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	_common "github.com/wingkwong/bootstrap-cli/internal/common"
+	"github.com/wingkwong/bootstrap-cli/internal/ui/list"
 )
 
-func (b *Bubble) switchList() []tea.Cmd {
+func (b *Bubble) switchList(msg tea.Msg) []tea.Cmd {
 	var cmds []tea.Cmd
 	choice := b.navigationList.GetChoice()
 
@@ -48,7 +49,14 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case key.Matches(msg, b.keys.Exit):
 			// TODO
 		case key.Matches(msg, b.keys.SelectListItem):
-			cmds = append(cmds, tea.Batch(b.switchList()...))
+			cmds = append(cmds, tea.Batch(b.switchList(msg)...))
+		case key.Matches(msg, b.keys.Back):
+			if b.state != idleState {
+				b.state = idleState
+				b.navigationList = list.New(_common.NAVIGATION_TEMPLATE_LIST)
+				b.frontendTemplateList = list.New(_common.FRONTEND_TEMPLATE_LIST)
+				b.backendTemplateList = list.New(_common.BACKEND_TEMPLATE_LIST)
+			}
 		}
 	}
 
