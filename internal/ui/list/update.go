@@ -3,6 +3,7 @@ package list
 import (
 	"github.com/charmbracelet/bubbles/key"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 )
 
 func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
@@ -11,7 +12,10 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 
 	switch msg := msg.(type) {
 	case tea.WindowSizeMsg:
-		b.list.SetWidth(msg.Width)
+		h, w := lipgloss.NewStyle().GetFrameSize()
+		vh = msg.Height - h
+		vw = msg.Width - w
+		b.SetSize(vw, vh)
 		return b, nil
 
 	case tea.KeyMsg:

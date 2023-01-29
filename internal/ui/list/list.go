@@ -6,6 +6,11 @@ import (
 	_common "github.com/wingkwong/bootstrap-cli/internal/common"
 )
 
+var (
+	vh int
+	vw int
+)
+
 type Bubble struct {
 	list   list.Model
 	choice string
@@ -75,6 +80,13 @@ func New(listType string) Bubble {
 	l.SetFilteringEnabled(true)
 	l.Styles.PaginationStyle = paginationStyle
 	l.Styles.HelpStyle = helpStyle
+
+	// for newly created lists only
+	// since WindowSizeMsg only gets sent on program start
+	if vw != 0 && vh != 0 {
+		l.SetWidth(vw)
+		l.SetHeight(vh)
+	}
 
 	return Bubble{list: l}
 }
