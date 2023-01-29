@@ -64,7 +64,8 @@ func New(listType string) Bubble {
 		l = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
 		l.Title = "Here's the available templates for Frontend Frameworks."
 	case _common.BACKEND_TEMPLATE_LIST:
-		items = []list.Item{}
+		items = []list.Item{
+			Item{title: "express", desc: "Generate Express.js App Template"}}
 		l = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
 		l.Title = "Here's the available Templates for Backend Frameworks."
 	}
