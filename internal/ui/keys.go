@@ -6,6 +6,7 @@ type KeyMap struct {
 	Quit           key.Binding
 	Exit           key.Binding
 	SelectListItem key.Binding
+	Back           key.Binding
 }
 
 func DefaultKeyMap() KeyMap {
@@ -14,10 +15,13 @@ func DefaultKeyMap() KeyMap {
 			key.WithKeys("ctrl+c"),
 		),
 		Exit: key.NewBinding(
-			key.WithKeys("ctrl+q"),
+			key.WithKeys("q"),
 		),
 		SelectListItem: key.NewBinding(
 			key.WithKeys("enter"),
+		),
+		Back: key.NewBinding(
+			key.WithKeys("left"),
 		),
 	}
 }
