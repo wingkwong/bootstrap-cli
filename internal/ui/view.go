@@ -1,22 +1,12 @@
 package ui
 
-import (
-	"github.com/charmbracelet/lipgloss"
-)
-
-func (m Bubble) View() string {
-	navigationList := m.navigationList.View()
-	templateList := ""
-
-	switch m.state {
+func (b Bubble) View() string {
+	switch b.state {
 	case frontendTemplateListState:
-		templateList = m.frontendTemplateList.View()
+		return b.frontendTemplateList.View()
 	case backendTemplateListState:
-		templateList = m.backendTemplateList.View()
+		return b.backendTemplateList.View()
+	default:
+		return b.navigationList.View()
 	}
-
-	return lipgloss.JoinVertical(lipgloss.Top,
-		lipgloss.JoinHorizontal(lipgloss.Top, navigationList, templateList),
-		// m.statusbar.View(),
-	)
 }
