@@ -19,7 +19,6 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 		case key.Matches(msg, selectListItemKey):
 			item, ok := b.list.SelectedItem().(Item)
 			if ok {
-				println(item.title)
 				b.choice = item.title
 			}
 		}
