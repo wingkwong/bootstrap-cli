@@ -1,9 +1,30 @@
 package ui
 
 import (
+	"github.com/charmbracelet/bubbles/key"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 	_common "github.com/wingkwong/bootstrap-cli/internal/common"
 )
+
+func (b *Bubble) switchList() []tea.Cmd {
+	var cmds []tea.Cmd
+	choice := b.navigationList.GetChoice()
+
+	switch choice {
+	case _common.FRONTEND_FRAMEWORKS:
+		b.state = frontendTemplateListState
+	case _common.BACKEND_FRAMEWORKS:
+		b.state = backendTemplateListState
+	case _common.KUBERNETES_FRAMEWORKS:
+		// show k8s
+	case _common.DOCKER_FRAMEWORKS:
+		// show docker
+	default:
+		b.state = idleState
+	}
+	return cmds
+}
 
 func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var (
@@ -11,21 +32,24 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		cmds []tea.Cmd
 	)
 
-	selectedItem := b.navigationList.GetSelectedItem()
-
 	b.navigationList, cmd = b.navigationList.Update(msg)
 	cmds = append(cmds, cmd)
 
-	switch selectedItem.Title() {
-	case _common.FRONTEND_FRAMEWORKS:
-		b.state = frontendTemplateListState
-		// show frontend
-	case _common.BACKEND_FRAMEWORKS:
-		b.state = backendTemplateListState
-	case _common.KUBERNETES_FRAMEWORKS:
-		// show k8s
-	case _common.DOCKER_FRAMEWORKS:
-		// show docker
+	switch msg := msg.(type) {
+	case tea.WindowSizeMsg:
+		h, v := lipgloss.NewStyle().Padding(1, 2).GetFrameSize()
+		b.navigationList.SetSize(msg.Width-h, msg.Height-v)
+		b.frontendTemplateList.SetSize(msg.Width-h, msg.Height-v)
+		b.backendTemplateList.SetSize(msg.Width-h, msg.Height-v)
+	case tea.KeyMsg:
+		switch {
+		case key.Matches(msg, b.keys.Quit):
+			return b, tea.Quit
+		case key.Matches(msg, b.keys.Exit):
+			// TODO
+		case key.Matches(msg, b.keys.SelectListItem):
+			cmds = append(cmds, tea.Batch(b.switchList()...))
+		}
 	}
 
 	b.frontendTemplateList, cmd = b.frontendTemplateList.Update(msg)
