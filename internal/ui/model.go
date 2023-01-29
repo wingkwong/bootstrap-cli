@@ -33,5 +33,6 @@ func New() Bubble {
 		navigationList:       navigationListModel,
 		frontendTemplateList: frontendTemplateListModel,
 		backendTemplateList:  backendTemplateListModel,
+		keys:                 DefaultKeyMap(),
 	}
 }
