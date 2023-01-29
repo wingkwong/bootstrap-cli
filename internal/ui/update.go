@@ -57,6 +57,10 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				b.frontendTemplateList = list.New(_common.FRONTEND_TEMPLATE_LIST)
 				b.backendTemplateList = list.New(_common.BACKEND_TEMPLATE_LIST)
 			}
+		case key.Matches(msg, b.keys.Next):
+			if b.state == idleState {
+				cmds = append(cmds, tea.Batch(b.switchList(msg)...))
+			}
 		}
 	}
 
