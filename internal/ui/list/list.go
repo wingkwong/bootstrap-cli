@@ -46,7 +46,8 @@ func New(listType string) Bubble {
 			Item{title: _common.KUBERNETES_FRAMEWORKS, desc: _common.KUBERNETES_FRAMEWORKS_DESC},
 			Item{title: _common.DOCKER_FRAMEWORKS, desc: _common.DOCKER_FRAMEWORKS_DESC},
 		}
-		l.Title = ""
+		l = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
+		l.Title = "Select frameworks"
 	case _common.FRONTEND_TEMPLATE_LIST:
 		items = []list.Item{
 			Item{title: "vue", desc: "Generate Vue.js App Template"},
@@ -60,16 +61,17 @@ func New(listType string) Bubble {
 			Item{title: "gatsby", desc: "Generate Gatsby App Template in TypeScript"},
 			Item{title: "gatsby-ts", desc: "Generate Gatsby App Template in TypeScript"},
 		}
-		l.Title = "Here's the available Templates."
+		l = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
+		l.Title = "Here's the available templates for Frontend Frameworks."
 	case _common.BACKEND_TEMPLATE_LIST:
 		items = []list.Item{}
-		l.Title = "Here's the available Templates."
+		l = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
+		l.Title = "Here's the available Templates for Backend Frameworks."
 	}
 
-	l = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
+	l.Styles.Title = titleStyle
 	l.SetShowStatusBar(false)
 	l.SetFilteringEnabled(true)
-	l.Styles.Title = titleStyle
 	l.Styles.PaginationStyle = paginationStyle
 	l.Styles.HelpStyle = helpStyle
 
