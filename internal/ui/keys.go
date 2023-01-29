@@ -7,6 +7,7 @@ type KeyMap struct {
 	Exit           key.Binding
 	SelectListItem key.Binding
 	Back           key.Binding
+	Next           key.Binding
 }
 
 func DefaultKeyMap() KeyMap {
@@ -22,6 +23,9 @@ func DefaultKeyMap() KeyMap {
 		),
 		Back: key.NewBinding(
 			key.WithKeys("left"),
+		),
+		Next: key.NewBinding(
+			key.WithKeys("right"),
 		),
 	}
 }
