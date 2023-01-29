@@ -3,17 +3,7 @@ package list
 import (
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
 	_common "github.com/wingkwong/bootstrap-cli/internal/common"
-)
-
-const listHeight = 20
-
-var (
-	titleStyle      = lipgloss.NewStyle()
-	paginationStyle = list.DefaultStyles().PaginationStyle.PaddingLeft(4)
-	helpStyle       = list.DefaultStyles().HelpStyle.PaddingLeft(4).PaddingBottom(1)
-	quitTextStyle   = lipgloss.NewStyle().Margin(1, 0, 2, 4)
 )
 
 type Bubble struct {
@@ -42,23 +32,6 @@ func (b *Bubble) SetSize(width, height int) {
 		width,
 		height,
 	)
-}
-
-func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
-	switch msg := msg.(type) {
-	case tea.WindowSizeMsg:
-		b.list.SetWidth(msg.Width)
-		return b, nil
-	}
-
-	var cmd tea.Cmd
-	b.list, cmd = b.list.Update(msg)
-
-	return b, cmd
-}
-
-func (b Bubble) View() string {
-	return b.list.View()
 }
 
 func New(listType string) Bubble {
