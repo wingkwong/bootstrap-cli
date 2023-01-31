@@ -12,16 +12,21 @@ var (
 )
 
 type Bubble struct {
-	list   list.Model
-	choice string
+	list                list.Model
+	frameworkTypeChoice string
+	frameworkChoice     string
 }
 
 func (b Bubble) Init() tea.Cmd {
 	return nil
 }
 
-func (b Bubble) GetChoice() string {
-	return b.choice
+func (b Bubble) GetFrameworkTypeChoice() string {
+	return b.frameworkTypeChoice
+}
+
+func (b Bubble) GetFrameworkChoice() string {
+	return b.frameworkChoice
 }
 
 func (b Bubble) GetSelectedItem() Item {

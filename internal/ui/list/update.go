@@ -22,7 +22,11 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 		case key.Matches(msg, selectListItemKey), key.Matches(msg, selectListItemByNextKey):
 			item, ok := b.list.SelectedItem().(Item)
 			if ok {
-				b.choice = item.title
+				if b.frameworkTypeChoice == "" {
+					b.frameworkTypeChoice = item.title
+				} else if b.frameworkChoice == "" {
+					b.frameworkChoice = item.title
+				}
 			}
 		}
 	}
