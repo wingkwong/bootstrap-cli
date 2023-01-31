@@ -17,11 +17,9 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 		vw = msg.Width - w
 		b.SetSize(vw, vh)
 		return b, nil
-
 	case tea.KeyMsg:
 		switch {
-		case key.Matches(msg, selectListItemKey):
-		case key.Matches(msg, selectListItemByNextKey):
+		case key.Matches(msg, selectListItemKey), key.Matches(msg, selectListItemByNextKey):
 			item, ok := b.list.SelectedItem().(Item)
 			if ok {
 				b.choice = item.title
