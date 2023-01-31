@@ -10,9 +10,9 @@ import (
 
 func (b *Bubble) switchList(msg tea.Msg) []tea.Cmd {
 	var cmds []tea.Cmd
-	choice := b.navigationList.GetChoice()
+	frameworkTypeChoice := b.navigationList.GetFrameworkTypeChoice()
 
-	switch choice {
+	switch frameworkTypeChoice {
 	case _common.FRONTEND_FRAMEWORKS:
 		b.state = frontendTemplateListState
 	case _common.BACKEND_FRAMEWORKS:
