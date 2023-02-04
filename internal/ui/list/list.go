@@ -15,6 +15,7 @@ type Bubble struct {
 	list                list.Model
 	frameworkTypeChoice string
 	frameworkChoice     string
+	output              []byte
 }
 
 func (b Bubble) Init() tea.Cmd {
