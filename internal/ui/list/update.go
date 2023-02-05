@@ -7,6 +7,7 @@ import (
 	"github.com/charmbracelet/bubbles/key"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+	_common "github.com/wingkwong/bootstrap-cli/internal/common"
 )
 
 type installFinishedMsg struct {
@@ -14,20 +15,17 @@ type installFinishedMsg struct {
 	out bytes.Buffer
 }
 
-func runInstall() tea.Cmd {
-	c := exec.Command("npx", "create-react-app", "my-app")
-	var out bytes.Buffer
-	c.Stdout = &out
-	return tea.ExecProcess(c, func(err error) tea.Msg {
-		return installFinishedMsg{err, out}
-	})
-}
-
 func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 	var cmd tea.Cmd
 	var cmds []tea.Cmd
 
 	switch msg := msg.(type) {
+	case installFinishedMsg:
+		b.output = msg.out.Bytes()
+		if msg.err != nil {
+			// b.err = msg.err
+			return b, tea.Quit
+		}
 	case tea.WindowSizeMsg:
 		h, w := lipgloss.NewStyle().GetFrameSize()
 		vh = msg.Height - h
@@ -37,25 +35,46 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 	case tea.KeyMsg:
 		switch {
 		case key.Matches(msg, selectListItemKey), key.Matches(msg, selectListItemByNextKey):
-			item, ok := b.list.SelectedItem().(Item)
-			if ok {
-				if b.frameworkTypeChoice == "" {
-					b.frameworkTypeChoice = item.title
-				} else if b.frameworkChoice == "" {
-					b.frameworkChoice = item.title
-					return b, runInstall()
+			if b.state == navigationState {
+				item, ok := b.navigationList.SelectedItem().(Item)
+				if ok {
+					b.frameworkType = item.title
+					b.state = templateState
+				}
+			} else if b.state == templateState {
+				var item Item
+				var ok bool
+				if b.frameworkType == _common.FRONTEND_FRAMEWORKS {
+					item, ok = b.frontendTemplateList.SelectedItem().(Item)
+				} else if b.frameworkType == _common.BACKEND_FRAMEWORKS {
+					item, ok = b.backendTemplateList.SelectedItem().(Item)
+				}
+
+				if ok {
+					b.framework = item.title
+					b.state = installState
+					switch b.framework {
+					case "vue":
+						c := exec.Command("npx", "create-react-app", "my-app")
+						var out bytes.Buffer
+						c.Stdout = &out
+						cmds = append(cmds, tea.ExecProcess(c, func(err error) tea.Msg {
+							return installFinishedMsg{err, out}
+						}))
+					}
 				}
 			}
 		}
-	case installFinishedMsg:
-		b.output = msg.out.Bytes()
-		if msg.err != nil {
-			// b.err = msg.err
-			return b, tea.Quit
-		}
 	}
 
-	b.list, cmd = b.list.Update(msg)
+	b.navigationList, cmd = b.navigationList.Update(msg)
 	cmds = append(cmds, cmd)
-	return b, cmd
+
+	b.frontendTemplateList, cmd = b.frontendTemplateList.Update(msg)
+	cmds = append(cmds, cmd)
+
+	b.backendTemplateList, cmd = b.backendTemplateList.Update(msg)
+	cmds = append(cmds, cmd)
+
+	return b, tea.Batch(cmds...)
 }
