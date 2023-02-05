@@ -4,6 +4,6 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-func (m Bubble) Init() tea.Cmd {
-	return m.navigationList.Init()
+func (b Bubble) Init() tea.Cmd {
+	return b.l.Init()
 }
