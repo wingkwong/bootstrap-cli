@@ -88,16 +88,16 @@ func New() Bubble {
 
 	// frontend
 	items = []list.Item{
-		Item{title: "vue", desc: "Generate Vue.js App Template"},
-		Item{title: "vue-ts", desc: "Generate Vue.js App Template in TypeScript"},
-		Item{title: "react", desc: "Generate React App Template"},
-		Item{title: "react-ts", desc: "Generate React App Template in TypeScript"},
-		Item{title: "next", desc: "Generate Next.js App Template"},
-		Item{title: "next-ts", desc: "Generate Next.js App Template in TypeScript"},
-		Item{title: "vanilla", desc: "Generate Vanilla.js App Template"},
-		Item{title: "vanilla-ts", desc: "Generate Vanilla.js App Template in TypeScript"},
-		Item{title: "gatsby", desc: "Generate Gatsby App Template in TypeScript"},
-		Item{title: "gatsby-ts", desc: "Generate Gatsby App Template in TypeScript"},
+		Item{title: _common.FRONTEND_VUE, desc: _common.FRONTEND_VUE_DESC, command: _common.FRONTEND_VUE_CMD},
+		Item{title: _common.FRONTEND_VUE_TS, desc: _common.FRONTEND_VUE_TS_DESC, command: _common.FRONTEND_VUE_TS_CMD},
+		Item{title: _common.FRONTEND_REACT, desc: _common.FRONTEND_REACT_DESC, command: _common.FRONTEND_REACT_CMD},
+		Item{title: _common.FRONTEND_REACT_TS, desc: _common.FRONTEND_REACT_TS_DESC, command: _common.FRONTEND_REACT_TS_CMD},
+		Item{title: _common.FRONTEND_NEXT, desc: _common.FRONTEND_NEXT_DESC, command: _common.FRONTEND_NEXT_CMD},
+		Item{title: _common.FRONTEND_NEXT_TS, desc: _common.FRONTEND_NEXT_TS_DESC, command: _common.FRONTEND_NEXT_TS_CMD},
+		Item{title: _common.FRONTEND_VANILLA, desc: _common.FRONTEND_VANILLA_DESC, command: _common.FRONTEND_VANILLA_CMD},
+		Item{title: _common.FRONTEND_VANILLA_TS, desc: _common.FRONTEND_VANILLA_TS_DESC, command: _common.FRONTEND_VANILLA_TS_CMD},
+		Item{title: _common.FRONTEND_GATSBY, desc: _common.FRONTEND_GATSBY_DESC, command: _common.FRONTEND_GATSBY_CMD},
+		Item{title: _common.FRONTEND_GATSBY_TS, desc: _common.FRONTEND_GATSBY_TS_DESC, command: _common.FRONTEND_GATSBY_TS_CMD},
 	}
 	frontendTemplateList = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
 	frontendTemplateList.Title = "Here's the available templates for Frontend Frameworks."
@@ -110,7 +110,7 @@ func New() Bubble {
 
 	// backend
 	items = []list.Item{
-		Item{title: "express", desc: "Generate Express.js App Template"}}
+		Item{title: "express", desc: "Generate Express.js App Template", command: ""}}
 	backendTemplateList = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
 	backendTemplateList.Title = "Here's the available Templates for Backend Frameworks."
 
