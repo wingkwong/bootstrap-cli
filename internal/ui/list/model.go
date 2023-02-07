@@ -26,6 +26,7 @@ type Bubble struct {
 	frameworkType        string
 	framework            string
 	output               []byte
+	installError         error
 	state                sessionState
 }
 
