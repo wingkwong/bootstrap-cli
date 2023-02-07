@@ -25,7 +25,7 @@ type Bubble struct {
 	backendTemplateList  list.Model
 	frameworkType        string
 	framework            string
-	output               []byte
+	installOutput        []byte
 	installError         error
 	state                sessionState
 }
