@@ -89,16 +89,16 @@ func New() Bubble {
 
 	// frontend
 	items = []list.Item{
-		Item{title: _common.FRONTEND_VUE, desc: _common.FRONTEND_VUE_DESC, command: _common.FRONTEND_VUE_CMD},
-		Item{title: _common.FRONTEND_VUE_TS, desc: _common.FRONTEND_VUE_TS_DESC, command: _common.FRONTEND_VUE_TS_CMD},
-		Item{title: _common.FRONTEND_REACT, desc: _common.FRONTEND_REACT_DESC, command: _common.FRONTEND_REACT_CMD},
-		Item{title: _common.FRONTEND_REACT_TS, desc: _common.FRONTEND_REACT_TS_DESC, command: _common.FRONTEND_REACT_TS_CMD},
-		Item{title: _common.FRONTEND_NEXT, desc: _common.FRONTEND_NEXT_DESC, command: _common.FRONTEND_NEXT_CMD},
-		Item{title: _common.FRONTEND_NEXT_TS, desc: _common.FRONTEND_NEXT_TS_DESC, command: _common.FRONTEND_NEXT_TS_CMD},
-		Item{title: _common.FRONTEND_VANILLA, desc: _common.FRONTEND_VANILLA_DESC, command: _common.FRONTEND_VANILLA_CMD},
-		Item{title: _common.FRONTEND_VANILLA_TS, desc: _common.FRONTEND_VANILLA_TS_DESC, command: _common.FRONTEND_VANILLA_TS_CMD},
-		Item{title: _common.FRONTEND_GATSBY, desc: _common.FRONTEND_GATSBY_DESC, command: _common.FRONTEND_GATSBY_CMD},
-		Item{title: _common.FRONTEND_GATSBY_TS, desc: _common.FRONTEND_GATSBY_TS_DESC, command: _common.FRONTEND_GATSBY_TS_CMD},
+		Item{title: _common.FRONTEND_VUE, desc: _common.FRONTEND_VUE_DESC, command: _common.FRONTEND_VUE_CMD, commandArgs: _common.FRONTEND_VUE_CMD_ARG},
+		Item{title: _common.FRONTEND_VUE_TS, desc: _common.FRONTEND_VUE_TS_DESC, command: _common.FRONTEND_VUE_TS_CMD, commandArgs: _common.FRONTEND_VUE_TS_CMD_ARG},
+		Item{title: _common.FRONTEND_REACT, desc: _common.FRONTEND_REACT_DESC, command: _common.FRONTEND_REACT_CMD, commandArgs: _common.FRONTEND_REACT_CMD_ARG},
+		Item{title: _common.FRONTEND_REACT_TS, desc: _common.FRONTEND_REACT_TS_DESC, command: _common.FRONTEND_REACT_TS_CMD, commandArgs: _common.FRONTEND_REACT_TS_CMD_ARG},
+		Item{title: _common.FRONTEND_NEXT, desc: _common.FRONTEND_NEXT_DESC, command: _common.FRONTEND_NEXT_CMD, commandArgs: _common.FRONTEND_NEXT_CMD_ARG},
+		Item{title: _common.FRONTEND_NEXT_TS, desc: _common.FRONTEND_NEXT_TS_DESC, command: _common.FRONTEND_NEXT_TS_CMD, commandArgs: _common.FRONTEND_NEXT_TS_CMD_ARG},
+		Item{title: _common.FRONTEND_VANILLA, desc: _common.FRONTEND_VANILLA_DESC, command: _common.FRONTEND_VANILLA_CMD, commandArgs: _common.FRONTEND_VANILLA_CMD_ARG},
+		Item{title: _common.FRONTEND_VANILLA_TS, desc: _common.FRONTEND_VANILLA_TS_DESC, command: _common.FRONTEND_VANILLA_TS_CMD, commandArgs: _common.FRONTEND_VANILLA_TS_CMD_ARG},
+		Item{title: _common.FRONTEND_GATSBY, desc: _common.FRONTEND_GATSBY_DESC, command: _common.FRONTEND_GATSBY_CMD, commandArgs: _common.FRONTEND_GATSBY_CMD_ARG},
+		Item{title: _common.FRONTEND_GATSBY_TS, desc: _common.FRONTEND_GATSBY_TS_DESC, command: _common.FRONTEND_GATSBY_TS_CMD, commandArgs: _common.FRONTEND_GATSBY_TS_CMD_ARG},
 	}
 	frontendTemplateList = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
 	frontendTemplateList.Title = "Here's the available templates for Frontend Frameworks."
