@@ -16,7 +16,11 @@ func (b Bubble) View() string {
 			view = b.backendTemplateList.View()
 		}
 	} else if b.state == installState {
-		view = string(b.output)
+		if b.installError != nil {
+			view = string(b.installError.Error())
+		} else {
+			view = string(b.installOutput)
+		}
 	}
 	return bubbleStyle.Render(lipgloss.JoinVertical(lipgloss.Top, view))
 }
