@@ -3,6 +3,7 @@ package list
 import (
 	"bytes"
 	"os/exec"
+	"strings"
 
 	"github.com/charmbracelet/bubbles/key"
 	tea "github.com/charmbracelet/bubbletea"
@@ -21,11 +22,14 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 
 	switch msg := msg.(type) {
 	case installFinishedMsg:
-		b.output = msg.out.Bytes()
+		b.installOutput = msg.out.Bytes()
 		if msg.err != nil {
-			// b.err = msg.err
+			b.installError = msg.err
+			// return b, tea.Quit
+		} else {
 			return b, tea.Quit
 		}
+		return b, nil
 	case tea.WindowSizeMsg:
 		h, w := lipgloss.NewStyle().GetFrameSize()
 		vh = msg.Height - h
@@ -51,17 +55,14 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 				}
 
 				if ok {
-					b.framework = item.title
 					b.state = installState
-					switch b.framework {
-					case "vue":
-						c := exec.Command("npx", "create-react-app", "my-app")
-						var out bytes.Buffer
-						c.Stdout = &out
-						cmds = append(cmds, tea.ExecProcess(c, func(err error) tea.Msg {
-							return installFinishedMsg{err, out}
-						}))
-					}
+					var command = strings.Split(item.command, " ")
+					c := exec.Command("npx", command...)
+					var out bytes.Buffer
+					c.Stdout = &out
+					cmds = append(cmds, tea.ExecProcess(c, func(err error) tea.Msg {
+						return installFinishedMsg{err, out}
+					}))
 				}
 			}
 		}
