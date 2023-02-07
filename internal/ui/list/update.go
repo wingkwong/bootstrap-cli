@@ -56,8 +56,8 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 
 				if ok {
 					b.state = installState
-					var command = strings.Split(item.command, " ")
-					c := exec.Command("npx", command...)
+					var args = strings.Split(item.commandArgs, " ")
+					c := exec.Command(item.command, args...)
 					var out bytes.Buffer
 					c.Stdout = &out
 					cmds = append(cmds, tea.ExecProcess(c, func(err error) tea.Msg {
