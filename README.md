@@ -2,6 +2,12 @@
 
 Bootstrapping your projects by one CLI.
 
+## Installation
+
+```go
+go install github.com/wingkwong/bootstrap-cli@latest
+```
+
 ## Available Templates
 
 ### Frontend
