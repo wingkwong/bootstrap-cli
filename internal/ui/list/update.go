@@ -38,7 +38,7 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 		return b, nil
 	case tea.KeyMsg:
 		switch {
-		case key.Matches(msg, selectListItemKey), key.Matches(msg, selectListItemByNextKey):
+		case key.Matches(msg, selectListItemKey):
 			if b.state == navigationState {
 				item, ok := b.navigationList.SelectedItem().(Item)
 				if ok {
