@@ -21,11 +21,5 @@ func DefaultKeyMap() KeyMap {
 		SelectListItem: key.NewBinding(
 			key.WithKeys("enter"),
 		),
-		Back: key.NewBinding(
-			key.WithKeys("left"),
-		),
-		Next: key.NewBinding(
-			key.WithKeys("right"),
-		),
 	}
 }
