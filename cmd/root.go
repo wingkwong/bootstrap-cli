@@ -9,7 +9,7 @@ import (
 )
 
 func Execute() {
-	p := tea.NewProgram(ui.New(), tea.WithAltScreen())
+	p := tea.NewProgram(ui.New())
 
 	if _, err := p.Run(); err != nil {
 		fmt.Println("Error running bootstrap-cli:", err)
