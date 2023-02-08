@@ -101,7 +101,7 @@ func New() Bubble {
 		Item{title: _common.FRONTEND_GATSBY_TS, desc: _common.FRONTEND_GATSBY_TS_DESC, command: _common.FRONTEND_GATSBY_TS_CMD, commandArgs: _common.FRONTEND_GATSBY_TS_CMD_ARG},
 	}
 	frontendTemplateList = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
-	frontendTemplateList.Title = "Here's the available templates for Frontend Frameworks."
+	frontendTemplateList.Title = _common.FRONTEND_TEMPLATE_LIST_TITLE
 
 	frontendTemplateList.Styles.Title = titleStyle
 	frontendTemplateList.SetShowStatusBar(false)
@@ -113,7 +113,7 @@ func New() Bubble {
 	items = []list.Item{
 		Item{title: "express", desc: "Generate Express.js App Template", command: ""}}
 	backendTemplateList = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
-	backendTemplateList.Title = "Here's the available Templates for Backend Frameworks."
+	backendTemplateList.Title = _common.BACKEND_TEMPLATE_LIST_TITLE
 
 	backendTemplateList.Styles.Title = titleStyle
 	backendTemplateList.SetShowStatusBar(false)
