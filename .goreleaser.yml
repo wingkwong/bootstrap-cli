@@ -1,0 +1,67 @@
+project_name: bootstrap-cli
+
+before:
+  hooks:
+    - go mod tidy
+    - go mod download
+
+builds:
+  - main: ./main.go
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    targets:
+      - linux_amd64
+      - darwin_amd64
+      - darwin_arm64
+      - windows_amd64
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w
+    hooks:
+      post:
+        - upx --brute "{{ .Path }}"
+
+brews:
+  - tap:
+      owner: wingkwong
+      name: bootstrap-cli
+    url_template: "https://github.com/wingkwong/bootstrap-cli/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    commit_author:
+      name: wingkwong
+      email: wingkwong.code@gmail.com
+    folder: Formula
+    caveats: "A minimalistic CLI to bootstrap projects with different frameworks."
+    homepage: "https://github.com/wingkwong/bootstrap-cli"
+    description: "A minimalistic CLI to bootstrap projects with different frameworks."
+    license: "MIT"
+    dependencies:
+      - name: npm
+      - name: go
+
+archives:
+  - replacements:
+      darwin: macOS
+      linux: Linux
+      windows: Windows
+      amd64: x86_64
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - LICENSE
+      - README.md
+
+snapshot:
+  name_template: "{{ .Tag }}"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^*.md:"
