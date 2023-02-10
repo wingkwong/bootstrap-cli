@@ -6,8 +6,9 @@ import (
 )
 
 var (
-	bubbleStyle     = lipgloss.NewStyle()
-	titleStyle      = lipgloss.NewStyle().Foreground(lipgloss.Color("#FFFDF5")).Background(lipgloss.Color("#25A065")).Padding(0, 1)
+	bubbleStyle     = lipgloss.NewStyle().Margin(1, 1)
+	titleStyle      = lipgloss.NewStyle().Foreground(lipgloss.Color("#FFFDF5")).Background(lipgloss.Color("#0074D9")).Padding(0, 1)
+	delegateStyle   = list.NewDefaultDelegate().Styles.SelectedTitle.Foreground(lipgloss.Color("#ADD8E6")).BorderLeftForeground(lipgloss.Color("#FFFFE0"))
 	paginationStyle = list.DefaultStyles().PaginationStyle.PaddingLeft(4)
 	helpStyle       = list.DefaultStyles().HelpStyle.PaddingLeft(4).PaddingBottom(1)
 	quitTextStyle   = lipgloss.NewStyle().Margin(1, 0, 2, 4)

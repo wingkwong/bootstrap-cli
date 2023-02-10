@@ -79,7 +79,11 @@ func New() Bubble {
 		Item{title: _common.KUBERNETES_FRAMEWORKS, desc: _common.KUBERNETES_FRAMEWORKS_DESC},
 		Item{title: _common.DOCKER_FRAMEWORKS, desc: _common.DOCKER_FRAMEWORKS_DESC},
 	}
-	navigationList = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
+	listDelegate := list.NewDefaultDelegate()
+	listDelegate.Styles.SelectedTitle = delegateStyle
+	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy()
+
+	navigationList = list.New(items, listDelegate, defaultWidth, listHeight)
 	navigationList.Title = _common.NAVIGATION_TEMPLATE_LIST_TITLE
 	navigationList.Styles.Title = titleStyle
 	navigationList.SetShowStatusBar(false)
@@ -100,7 +104,7 @@ func New() Bubble {
 		Item{title: _common.FRONTEND_GATSBY, desc: _common.FRONTEND_GATSBY_DESC, command: _common.FRONTEND_GATSBY_CMD, commandArgs: _common.FRONTEND_GATSBY_CMD_ARG},
 		Item{title: _common.FRONTEND_GATSBY_TS, desc: _common.FRONTEND_GATSBY_TS_DESC, command: _common.FRONTEND_GATSBY_TS_CMD, commandArgs: _common.FRONTEND_GATSBY_TS_CMD_ARG},
 	}
-	frontendTemplateList = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
+	frontendTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
 	frontendTemplateList.Title = _common.FRONTEND_TEMPLATE_LIST_TITLE
 
 	frontendTemplateList.Styles.Title = titleStyle
@@ -112,7 +116,7 @@ func New() Bubble {
 	// backend
 	items = []list.Item{
 		Item{title: "express", desc: "Generate Express.js App Template", command: ""}}
-	backendTemplateList = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
+	backendTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
 	backendTemplateList.Title = _common.BACKEND_TEMPLATE_LIST_TITLE
 
 	backendTemplateList.Styles.Title = titleStyle
