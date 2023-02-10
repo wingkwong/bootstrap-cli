@@ -80,7 +80,7 @@ func New() Bubble {
 		Item{title: _common.DOCKER_FRAMEWORKS, desc: _common.DOCKER_FRAMEWORKS_DESC},
 	}
 	navigationList = list.New(items, list.NewDefaultDelegate(), defaultWidth, listHeight)
-	navigationList.Title = "Select frameworks"
+	navigationList.Title = _common.NAVIGATION_TEMPLATE_LIST_TITLE
 	navigationList.Styles.Title = titleStyle
 	navigationList.SetShowStatusBar(false)
 	navigationList.SetFilteringEnabled(true)

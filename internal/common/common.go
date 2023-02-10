@@ -15,8 +15,9 @@ const (
 	FRONTEND_TEMPLATE_LIST   = "frontned-template-list"
 	BACKEND_TEMPLATE_LIST    = "backend-template-list"
 
-	FRONTEND_TEMPLATE_LIST_TITLE = "Here's the available templates for Frontend Frameworks."
-	BACKEND_TEMPLATE_LIST_TITLE  = "Here's the available Templates for Backend Frameworks."
+	NAVIGATION_TEMPLATE_LIST_TITLE = "Select frameworks"
+	FRONTEND_TEMPLATE_LIST_TITLE   = "Here's the available templates for Frontend Frameworks."
+	BACKEND_TEMPLATE_LIST_TITLE    = "Here's the available Templates for Backend Frameworks."
 
 	FRONTEND_VUE         = "vue"
 	FRONTEND_VUE_DESC    = "Generate Vue.js App Template"
