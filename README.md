@@ -1,20 +1,20 @@
-# Bootstrap CLI
+# 🚀 Bootstrap CLI
 
 Bootstrapping your projects by one CLI.
 
-<img width="444" alt="image" src="https://user-images.githubusercontent.com/35857179/218129537-9c870778-89ee-4bf0-87b8-b83b4cf4a79f.png">
+<img width="393" alt="image" src="https://user-images.githubusercontent.com/35857179/218260855-9e1b3cb0-e4c3-4c80-8a95-1fd64df26286.png">
 
-<img width="444" alt="image" src="https://user-images.githubusercontent.com/35857179/218129793-66f9fd63-2163-4c14-8571-c8ceba91a0d5.png">
+<img width="504" alt="image" src="https://user-images.githubusercontent.com/35857179/218260815-c01082f8-7f9e-4bc6-8bd3-a8558f9a3ddb.png">
 
-## Installation
+## 💻 Installation
 
 ```go
 go install github.com/wingkwong/bootstrap-cli@latest
 ```
 
-## Available Templates
+## 📚 Aailable Templates
 
-### Frontend
+### 📘 Frontend
 
 - vue
 - vue-ts
@@ -27,14 +27,14 @@ go install github.com/wingkwong/bootstrap-cli@latest
 - gatsby
 - gatsby-ts
 
-### Backend
+### 📙 Backend
 
 Coming soon.
 
-### Kubernetes
+### 📕 Kubernetes
 
 Coming soon.
 
-### Docker 
+### 📒 Docker 
 
 Coming soon.
