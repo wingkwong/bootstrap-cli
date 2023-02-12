@@ -1,4 +1,4 @@
-package common
+package constants
 
 const (
 	KUBERNETES_FRAMEWORKS      = "📕 Kubernetes"

@@ -3,7 +3,7 @@ package list
 import (
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
-	_common "github.com/wingkwong/bootstrap-cli/internal/common"
+	_constants "github.com/wingkwong/bootstrap-cli/internal/constants"
 )
 
 var (
@@ -74,17 +74,17 @@ func New() Bubble {
 
 	// navigation
 	items = []list.Item{
-		Item{title: _common.FRONTEND_FRAMEWORKS, desc: _common.FRONTEND_FRAMEWORKS_DESC},
-		Item{title: _common.BACKEND_FRAMEWORKS, desc: _common.BACKEND_FRAMEWORKS_DESC},
-		Item{title: _common.KUBERNETES_FRAMEWORKS, desc: _common.KUBERNETES_FRAMEWORKS_DESC},
-		Item{title: _common.DOCKER_FRAMEWORKS, desc: _common.DOCKER_FRAMEWORKS_DESC},
+		Item{title: _constants.FRONTEND_FRAMEWORKS, desc: _constants.FRONTEND_FRAMEWORKS_DESC},
+		Item{title: _constants.BACKEND_FRAMEWORKS, desc: _constants.BACKEND_FRAMEWORKS_DESC},
+		Item{title: _constants.KUBERNETES_FRAMEWORKS, desc: _constants.KUBERNETES_FRAMEWORKS_DESC},
+		Item{title: _constants.DOCKER_FRAMEWORKS, desc: _constants.DOCKER_FRAMEWORKS_DESC},
 	}
 	listDelegate := list.NewDefaultDelegate()
 	listDelegate.Styles.SelectedTitle = delegateStyle
 	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy()
 
 	navigationList = list.New(items, listDelegate, defaultWidth, listHeight)
-	navigationList.Title = _common.NAVIGATION_TEMPLATE_LIST_TITLE
+	navigationList.Title = _constants.NAVIGATION_TEMPLATE_LIST_TITLE
 	navigationList.Styles.Title = titleStyle
 	navigationList.SetShowStatusBar(false)
 	navigationList.SetFilteringEnabled(true)
@@ -93,19 +93,19 @@ func New() Bubble {
 
 	// frontend
 	items = []list.Item{
-		Item{title: _common.FRONTEND_VUE, desc: _common.FRONTEND_VUE_DESC, command: _common.FRONTEND_VUE_CMD, commandArgs: _common.FRONTEND_VUE_CMD_ARG},
-		Item{title: _common.FRONTEND_VUE_TS, desc: _common.FRONTEND_VUE_TS_DESC, command: _common.FRONTEND_VUE_TS_CMD, commandArgs: _common.FRONTEND_VUE_TS_CMD_ARG},
-		Item{title: _common.FRONTEND_REACT, desc: _common.FRONTEND_REACT_DESC, command: _common.FRONTEND_REACT_CMD, commandArgs: _common.FRONTEND_REACT_CMD_ARG},
-		Item{title: _common.FRONTEND_REACT_TS, desc: _common.FRONTEND_REACT_TS_DESC, command: _common.FRONTEND_REACT_TS_CMD, commandArgs: _common.FRONTEND_REACT_TS_CMD_ARG},
-		Item{title: _common.FRONTEND_NEXT, desc: _common.FRONTEND_NEXT_DESC, command: _common.FRONTEND_NEXT_CMD, commandArgs: _common.FRONTEND_NEXT_CMD_ARG},
-		Item{title: _common.FRONTEND_NEXT_TS, desc: _common.FRONTEND_NEXT_TS_DESC, command: _common.FRONTEND_NEXT_TS_CMD, commandArgs: _common.FRONTEND_NEXT_TS_CMD_ARG},
-		Item{title: _common.FRONTEND_VANILLA, desc: _common.FRONTEND_VANILLA_DESC, command: _common.FRONTEND_VANILLA_CMD, commandArgs: _common.FRONTEND_VANILLA_CMD_ARG},
-		Item{title: _common.FRONTEND_VANILLA_TS, desc: _common.FRONTEND_VANILLA_TS_DESC, command: _common.FRONTEND_VANILLA_TS_CMD, commandArgs: _common.FRONTEND_VANILLA_TS_CMD_ARG},
-		Item{title: _common.FRONTEND_GATSBY, desc: _common.FRONTEND_GATSBY_DESC, command: _common.FRONTEND_GATSBY_CMD, commandArgs: _common.FRONTEND_GATSBY_CMD_ARG},
-		Item{title: _common.FRONTEND_GATSBY_TS, desc: _common.FRONTEND_GATSBY_TS_DESC, command: _common.FRONTEND_GATSBY_TS_CMD, commandArgs: _common.FRONTEND_GATSBY_TS_CMD_ARG},
+		Item{title: _constants.FRONTEND_VUE, desc: _constants.FRONTEND_VUE_DESC, command: _constants.FRONTEND_VUE_CMD, commandArgs: _constants.FRONTEND_VUE_CMD_ARG},
+		Item{title: _constants.FRONTEND_VUE_TS, desc: _constants.FRONTEND_VUE_TS_DESC, command: _constants.FRONTEND_VUE_TS_CMD, commandArgs: _constants.FRONTEND_VUE_TS_CMD_ARG},
+		Item{title: _constants.FRONTEND_REACT, desc: _constants.FRONTEND_REACT_DESC, command: _constants.FRONTEND_REACT_CMD, commandArgs: _constants.FRONTEND_REACT_CMD_ARG},
+		Item{title: _constants.FRONTEND_REACT_TS, desc: _constants.FRONTEND_REACT_TS_DESC, command: _constants.FRONTEND_REACT_TS_CMD, commandArgs: _constants.FRONTEND_REACT_TS_CMD_ARG},
+		Item{title: _constants.FRONTEND_NEXT, desc: _constants.FRONTEND_NEXT_DESC, command: _constants.FRONTEND_NEXT_CMD, commandArgs: _constants.FRONTEND_NEXT_CMD_ARG},
+		Item{title: _constants.FRONTEND_NEXT_TS, desc: _constants.FRONTEND_NEXT_TS_DESC, command: _constants.FRONTEND_NEXT_TS_CMD, commandArgs: _constants.FRONTEND_NEXT_TS_CMD_ARG},
+		Item{title: _constants.FRONTEND_VANILLA, desc: _constants.FRONTEND_VANILLA_DESC, command: _constants.FRONTEND_VANILLA_CMD, commandArgs: _constants.FRONTEND_VANILLA_CMD_ARG},
+		Item{title: _constants.FRONTEND_VANILLA_TS, desc: _constants.FRONTEND_VANILLA_TS_DESC, command: _constants.FRONTEND_VANILLA_TS_CMD, commandArgs: _constants.FRONTEND_VANILLA_TS_CMD_ARG},
+		Item{title: _constants.FRONTEND_GATSBY, desc: _constants.FRONTEND_GATSBY_DESC, command: _constants.FRONTEND_GATSBY_CMD, commandArgs: _constants.FRONTEND_GATSBY_CMD_ARG},
+		Item{title: _constants.FRONTEND_GATSBY_TS, desc: _constants.FRONTEND_GATSBY_TS_DESC, command: _constants.FRONTEND_GATSBY_TS_CMD, commandArgs: _constants.FRONTEND_GATSBY_TS_CMD_ARG},
 	}
 	frontendTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
-	frontendTemplateList.Title = _common.FRONTEND_TEMPLATE_LIST_TITLE
+	frontendTemplateList.Title = _constants.FRONTEND_TEMPLATE_LIST_TITLE
 
 	frontendTemplateList.Styles.Title = titleStyle
 	frontendTemplateList.SetShowStatusBar(false)
@@ -117,7 +117,7 @@ func New() Bubble {
 	items = []list.Item{
 		Item{title: "express", desc: "Generate Express.js App Template", command: ""}}
 	backendTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
-	backendTemplateList.Title = _common.BACKEND_TEMPLATE_LIST_TITLE
+	backendTemplateList.Title = _constants.BACKEND_TEMPLATE_LIST_TITLE
 
 	backendTemplateList.Styles.Title = titleStyle
 	backendTemplateList.SetShowStatusBar(false)

@@ -1,4 +1,4 @@
-package common
+package constants
 
 const (
 	FRONTEND_FRAMEWORKS          = "📘 Frontend Frameworks"

@@ -2,7 +2,7 @@ package list
 
 import (
 	"github.com/charmbracelet/lipgloss"
-	_common "github.com/wingkwong/bootstrap-cli/internal/common"
+	_constants "github.com/wingkwong/bootstrap-cli/internal/constants"
 )
 
 func (b Bubble) View() string {
@@ -10,9 +10,9 @@ func (b Bubble) View() string {
 	if b.state == navigationState {
 		view = b.navigationList.View()
 	} else if b.state == templateState {
-		if b.frameworkType == _common.FRONTEND_FRAMEWORKS {
+		if b.frameworkType == _constants.FRONTEND_FRAMEWORKS {
 			view = b.frontendTemplateList.View()
-		} else if b.frameworkType == _common.BACKEND_FRAMEWORKS {
+		} else if b.frameworkType == _constants.BACKEND_FRAMEWORKS {
 			view = b.backendTemplateList.View()
 		}
 	} else if b.state == installState {

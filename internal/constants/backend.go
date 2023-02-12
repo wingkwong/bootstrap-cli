@@ -1,4 +1,4 @@
-package common
+package constants
 
 const (
 	BACKEND_FRAMEWORKS          = "📙 Backend Frameworks"

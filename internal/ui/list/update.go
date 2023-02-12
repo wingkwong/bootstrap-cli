@@ -8,7 +8,7 @@ import (
 	"github.com/charmbracelet/bubbles/key"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	_common "github.com/wingkwong/bootstrap-cli/internal/common"
+	_constants "github.com/wingkwong/bootstrap-cli/internal/constants"
 )
 
 type installFinishedMsg struct {
@@ -48,9 +48,9 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 			} else if b.state == templateState {
 				var item Item
 				var ok bool
-				if b.frameworkType == _common.FRONTEND_FRAMEWORKS {
+				if b.frameworkType == _constants.FRONTEND_FRAMEWORKS {
 					item, ok = b.frontendTemplateList.SelectedItem().(Item)
-				} else if b.frameworkType == _common.BACKEND_FRAMEWORKS {
+				} else if b.frameworkType == _constants.BACKEND_FRAMEWORKS {
 					item, ok = b.backendTemplateList.SelectedItem().(Item)
 				}
 
