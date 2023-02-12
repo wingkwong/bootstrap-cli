@@ -1,7 +1,6 @@
 package list
 
 import (
-	"github.com/charmbracelet/lipgloss"
 	_constants "github.com/wingkwong/bootstrap-cli/internal/constants"
 )
 
@@ -17,10 +16,12 @@ func (b Bubble) View() string {
 		}
 	} else if b.state == installState {
 		if b.installError != nil {
-			view = string(b.installError.Error())
-		} else {
+			view = "Error: " + b.installError.Error() + "\n"
+		} else if b.installProgress.Percent() == 1.0 {
 			view = string(b.installOutput)
+		} else {
+			view = b.installProgress.View() + "\n\n" + "Installing ..."
 		}
 	}
-	return bubbleStyle.Render(lipgloss.JoinVertical(lipgloss.Top, view))
+	return bubbleStyle.Render(view)
 }

@@ -2,6 +2,7 @@ package list
 
 import (
 	"github.com/charmbracelet/bubbles/list"
+	"github.com/charmbracelet/bubbles/progress"
 	tea "github.com/charmbracelet/bubbletea"
 	_constants "github.com/wingkwong/bootstrap-cli/internal/constants"
 )
@@ -27,11 +28,12 @@ type Bubble struct {
 	framework            string
 	installOutput        []byte
 	installError         error
+	installProgress      progress.Model
 	state                sessionState
 }
 
 func (b Bubble) Init() tea.Cmd {
-	return nil
+	return tickCmd()
 }
 
 func (b Bubble) GetFrameworkType() string {
@@ -125,5 +127,5 @@ func New() Bubble {
 	backendTemplateList.Styles.PaginationStyle = paginationStyle
 	backendTemplateList.Styles.HelpStyle = helpStyle
 
-	return Bubble{navigationList: navigationList, frontendTemplateList: frontendTemplateList, backendTemplateList: backendTemplateList}
+	return Bubble{navigationList: navigationList, frontendTemplateList: frontendTemplateList, backendTemplateList: backendTemplateList, installProgress: progress.New(progress.WithDefaultGradient())}
 }
