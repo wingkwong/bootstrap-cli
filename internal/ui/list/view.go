@@ -18,7 +18,7 @@ func (b Bubble) View() string {
 		if b.installError != nil {
 			view = "Error: " + b.installError.Error() + "\n"
 		} else if b.installProgress.Percent() == 1.0 {
-			view = string(b.installOutput)
+			view = b.installProgress.View() + "\n\n" + string(b.installOutput)
 		} else {
 			view = b.installProgress.View() + "\n\n" + "Installing ..."
 		}
