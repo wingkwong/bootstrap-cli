@@ -1,6 +1,8 @@
 package list
 
 import (
+	"fmt"
+
 	_constants "github.com/wingkwong/bootstrap-cli/internal/constants"
 )
 
@@ -17,10 +19,10 @@ func (b Bubble) View() string {
 	} else if b.state == installState {
 		if b.installError != nil {
 			view = "Error: " + b.installError.Error() + "\n"
-		} else if b.installProgress.Percent() == 1.0 {
-			view = b.installProgress.View() + "\n\n" + string(b.installOutput)
+		} else if b.isInstalling == true {
+			view = fmt.Sprintf("%s Installing ... ", b.spinner.View())
 		} else {
-			view = b.installProgress.View() + "\n\n" + "Installing ..."
+			view = fmt.Sprintf("%s", b.installOutput)
 		}
 	}
 	return bubbleStyle.Render(view)

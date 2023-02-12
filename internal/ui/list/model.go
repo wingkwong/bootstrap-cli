@@ -2,7 +2,7 @@ package list
 
 import (
 	"github.com/charmbracelet/bubbles/list"
-	"github.com/charmbracelet/bubbles/progress"
+	"github.com/charmbracelet/bubbles/spinner"
 	tea "github.com/charmbracelet/bubbletea"
 	_constants "github.com/wingkwong/bootstrap-cli/internal/constants"
 )
@@ -28,12 +28,13 @@ type Bubble struct {
 	framework            string
 	installOutput        []byte
 	installError         error
-	installProgress      progress.Model
+	isInstalling         bool
+	spinner              spinner.Model
 	state                sessionState
 }
 
 func (b Bubble) Init() tea.Cmd {
-	return tickCmd()
+	return b.spinner.Tick
 }
 
 func (b Bubble) GetFrameworkType() string {
@@ -117,7 +118,13 @@ func New() Bubble {
 
 	// backend
 	items = []list.Item{
-		Item{title: "express", desc: "Generate Express.js App Template", command: ""}}
+		Item{
+			title:       _constants.BACKEND_EXPRESS,
+			desc:        _constants.BACKEND_EXPRESS_DESC,
+			command:     _constants.BACKEND_EXPRESS_CMD,
+			commandArgs: _constants.BACKEND_EXPRESS_CMD_ARG,
+		},
+	}
 	backendTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
 	backendTemplateList.Title = _constants.BACKEND_TEMPLATE_LIST_TITLE
 
@@ -127,5 +134,15 @@ func New() Bubble {
 	backendTemplateList.Styles.PaginationStyle = paginationStyle
 	backendTemplateList.Styles.HelpStyle = helpStyle
 
-	return Bubble{navigationList: navigationList, frontendTemplateList: frontendTemplateList, backendTemplateList: backendTemplateList, installProgress: progress.New(progress.WithDefaultGradient())}
+	s := spinner.New()
+	s.Spinner = spinner.Dot
+	s.Style = spinnerStyle
+
+	return Bubble{
+		navigationList:       navigationList,
+		frontendTemplateList: frontendTemplateList,
+		backendTemplateList:  backendTemplateList,
+		spinner:              s,
+		isInstalling:         false,
+	}
 }
