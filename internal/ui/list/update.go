@@ -42,6 +42,9 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 				if ok {
 					b.frameworkType = item.title
 					b.state = templateState
+					// point to the first item
+					b.frontendTemplateList.ResetSelected()
+					b.backendTemplateList.ResetSelected()
 				}
 			} else if b.state == templateState {
 				var item Item
