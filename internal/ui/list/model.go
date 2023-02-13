@@ -106,10 +106,12 @@ func New() Bubble {
 		})
 	}
 
+	listDelegate.Styles.SelectedTitle = frontendDelegateStyle
+	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy()
 	frontendTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
 	frontendTemplateList.Title = _constants.FRONTEND_TEMPLATE_LIST_TITLE
 
-	frontendTemplateList.Styles.Title = titleStyle
+	frontendTemplateList.Styles.Title = frontendTitleStyle
 	frontendTemplateList.SetShowStatusBar(false)
 	frontendTemplateList.SetFilteringEnabled(true)
 	frontendTemplateList.Styles.PaginationStyle = paginationStyle
@@ -125,10 +127,12 @@ func New() Bubble {
 			commandArgs: v.CommandArgs,
 		})
 	}
+	listDelegate.Styles.SelectedTitle = backendDelegateStyle
+	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy()
 	backendTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
 	backendTemplateList.Title = _constants.BACKEND_TEMPLATE_LIST_TITLE
 
-	backendTemplateList.Styles.Title = titleStyle
+	backendTemplateList.Styles.Title = backendTitleStyle
 	backendTemplateList.SetShowStatusBar(false)
 	backendTemplateList.SetFilteringEnabled(true)
 	backendTemplateList.Styles.PaginationStyle = paginationStyle
