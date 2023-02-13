@@ -5,6 +5,7 @@ import (
 	"github.com/charmbracelet/bubbles/spinner"
 	tea "github.com/charmbracelet/bubbletea"
 	_constants "github.com/wingkwong/bootstrap-cli/internal/constants"
+	_templates "github.com/wingkwong/bootstrap-cli/internal/templates"
 )
 
 var (
@@ -95,18 +96,16 @@ func New() Bubble {
 	navigationList.Styles.HelpStyle = helpStyle
 
 	// frontend
-	items = []list.Item{
-		Item{title: _constants.FRONTEND_VUE, desc: _constants.FRONTEND_VUE_DESC, command: _constants.FRONTEND_VUE_CMD, commandArgs: _constants.FRONTEND_VUE_CMD_ARG},
-		Item{title: _constants.FRONTEND_VUE_TS, desc: _constants.FRONTEND_VUE_TS_DESC, command: _constants.FRONTEND_VUE_TS_CMD, commandArgs: _constants.FRONTEND_VUE_TS_CMD_ARG},
-		Item{title: _constants.FRONTEND_REACT, desc: _constants.FRONTEND_REACT_DESC, command: _constants.FRONTEND_REACT_CMD, commandArgs: _constants.FRONTEND_REACT_CMD_ARG},
-		Item{title: _constants.FRONTEND_REACT_TS, desc: _constants.FRONTEND_REACT_TS_DESC, command: _constants.FRONTEND_REACT_TS_CMD, commandArgs: _constants.FRONTEND_REACT_TS_CMD_ARG},
-		Item{title: _constants.FRONTEND_NEXT, desc: _constants.FRONTEND_NEXT_DESC, command: _constants.FRONTEND_NEXT_CMD, commandArgs: _constants.FRONTEND_NEXT_CMD_ARG},
-		Item{title: _constants.FRONTEND_NEXT_TS, desc: _constants.FRONTEND_NEXT_TS_DESC, command: _constants.FRONTEND_NEXT_TS_CMD, commandArgs: _constants.FRONTEND_NEXT_TS_CMD_ARG},
-		Item{title: _constants.FRONTEND_VANILLA, desc: _constants.FRONTEND_VANILLA_DESC, command: _constants.FRONTEND_VANILLA_CMD, commandArgs: _constants.FRONTEND_VANILLA_CMD_ARG},
-		Item{title: _constants.FRONTEND_VANILLA_TS, desc: _constants.FRONTEND_VANILLA_TS_DESC, command: _constants.FRONTEND_VANILLA_TS_CMD, commandArgs: _constants.FRONTEND_VANILLA_TS_CMD_ARG},
-		Item{title: _constants.FRONTEND_GATSBY, desc: _constants.FRONTEND_GATSBY_DESC, command: _constants.FRONTEND_GATSBY_CMD, commandArgs: _constants.FRONTEND_GATSBY_CMD_ARG},
-		Item{title: _constants.FRONTEND_GATSBY_TS, desc: _constants.FRONTEND_GATSBY_TS_DESC, command: _constants.FRONTEND_GATSBY_TS_CMD, commandArgs: _constants.FRONTEND_GATSBY_TS_CMD_ARG},
+	items = []list.Item{}
+	for _, v := range _templates.FRONTEND_TEMPLATES {
+		items = append(items, Item{
+			title:       v.Title,
+			desc:        v.Desc,
+			command:     v.Command,
+			commandArgs: v.CommandArgs,
+		})
 	}
+
 	frontendTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
 	frontendTemplateList.Title = _constants.FRONTEND_TEMPLATE_LIST_TITLE
 
@@ -117,13 +116,14 @@ func New() Bubble {
 	frontendTemplateList.Styles.HelpStyle = helpStyle
 
 	// backend
-	items = []list.Item{
-		Item{
-			title:       _constants.BACKEND_EXPRESS,
-			desc:        _constants.BACKEND_EXPRESS_DESC,
-			command:     _constants.BACKEND_EXPRESS_CMD,
-			commandArgs: _constants.BACKEND_EXPRESS_CMD_ARG,
-		},
+	items = []list.Item{}
+	for _, v := range _templates.BACKEND_TEMPLATES {
+		items = append(items, Item{
+			title:       v.Title,
+			desc:        v.Desc,
+			command:     v.Command,
+			commandArgs: v.CommandArgs,
+		})
 	}
 	backendTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
 	backendTemplateList.Title = _constants.BACKEND_TEMPLATE_LIST_TITLE
