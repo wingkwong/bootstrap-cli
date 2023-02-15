@@ -22,7 +22,7 @@ func (b Bubble) View() string {
 		} else if b.isInstalling == true {
 			view = fmt.Sprintf("%s Installing ... ", b.spinner.View())
 		} else {
-			view = fmt.Sprintf("%s", b.installOutput)
+			view = fmt.Sprintf("%s \n 🚀 %s %s", b.installOutput, b.framework, "has been installed. Press `Enter` to quit. ")
 		}
 	}
 	return bubbleStyle.Render(view)
