@@ -67,6 +67,8 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 						return installFinishedMsg{err, out}
 					})
 				}
+			} else {
+				return b, tea.Quit
 			}
 		}
 	default:
