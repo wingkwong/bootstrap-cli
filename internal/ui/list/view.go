@@ -15,6 +15,8 @@ func (b Bubble) View() string {
 			view = b.frontendTemplateList.View()
 		} else if b.frameworkType == _constants.BACKEND_FRAMEWORKS {
 			view = b.backendTemplateList.View()
+		} else if b.frameworkType == _constants.DOCKER_FRAMEWORKS {
+			view = b.dockerTemplateList.View()
 		}
 	} else if b.state == installState {
 		if b.installError != nil {

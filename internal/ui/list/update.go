@@ -45,6 +45,7 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 					// point to the first item
 					b.frontendTemplateList.ResetSelected()
 					b.backendTemplateList.ResetSelected()
+					b.dockerTemplateList.ResetSelected()
 				}
 			} else if b.state == templateState {
 				var item Item
@@ -53,8 +54,9 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 					item, ok = b.frontendTemplateList.SelectedItem().(Item)
 				} else if b.frameworkType == _constants.BACKEND_FRAMEWORKS {
 					item, ok = b.backendTemplateList.SelectedItem().(Item)
+				} else if b.frameworkType == _constants.DOCKER_FRAMEWORKS {
+					item, ok = b.dockerTemplateList.SelectedItem().(Item)
 				}
-
 				if ok {
 					b.state = installState
 					b.framework = item.name
@@ -84,6 +86,9 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 	cmds = append(cmds, cmd)
 
 	b.backendTemplateList, cmd = b.backendTemplateList.Update(msg)
+	cmds = append(cmds, cmd)
+
+	b.dockerTemplateList, cmd = b.dockerTemplateList.Update(msg)
 	cmds = append(cmds, cmd)
 
 	return b, tea.Batch(cmds...)

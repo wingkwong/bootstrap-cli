@@ -25,6 +25,7 @@ type Bubble struct {
 	navigationList       list.Model
 	frontendTemplateList list.Model
 	backendTemplateList  list.Model
+	dockerTemplateList   list.Model
 	frameworkType        string
 	framework            string
 	installOutput        []byte
@@ -67,6 +68,10 @@ func (b *Bubble) SetSize(width, height int) {
 		width,
 		height,
 	)
+	b.dockerTemplateList.SetSize(
+		width,
+		height,
+	)
 }
 
 func New() Bubble {
@@ -74,6 +79,7 @@ func New() Bubble {
 	var navigationList list.Model
 	var frontendTemplateList list.Model
 	var backendTemplateList list.Model
+	var dockerTemplateList list.Model
 	var items []list.Item
 
 	// navigation
@@ -140,6 +146,29 @@ func New() Bubble {
 	backendTemplateList.Styles.PaginationStyle = paginationStyle
 	backendTemplateList.Styles.HelpStyle = helpStyle
 
+	// docker
+
+	items = []list.Item{}
+	for _, v := range _templates.DOCKER_TEMPLATES {
+		items = append(items, Item{
+			title:       "🟡 " + v.Title,
+			name:        v.Title,
+			desc:        v.Desc,
+			command:     v.Command,
+			commandArgs: v.CommandArgs,
+		})
+	}
+	listDelegate.Styles.SelectedTitle = dockerDelegateStyle
+	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy()
+	dockerTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
+	dockerTemplateList.Title = _constants.DOCKER_TEMPLATE_LIST_TITLE
+
+	dockerTemplateList.Styles.Title = dockerTitleStyle
+	dockerTemplateList.SetShowStatusBar(false)
+	dockerTemplateList.SetFilteringEnabled(true)
+	dockerTemplateList.Styles.PaginationStyle = paginationStyle
+	dockerTemplateList.Styles.HelpStyle = helpStyle
+
 	s := spinner.New()
 	s.Spinner = spinner.Dot
 	s.Style = spinnerStyle
@@ -148,6 +177,7 @@ func New() Bubble {
 		navigationList:       navigationList,
 		frontendTemplateList: frontendTemplateList,
 		backendTemplateList:  backendTemplateList,
+		dockerTemplateList:   dockerTemplateList,
 		spinner:              s,
 		isInstalling:         false,
 	}
