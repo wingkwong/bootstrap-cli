@@ -21,7 +21,7 @@ func (b Bubble) View() string {
 			view = "Error: " + b.installError.Error() + "\n"
 		} else if b.isInstalling == true {
 			view = fmt.Sprintf("%s Installing ... ", b.spinner.View())
-		} else {
+		} else if b.installOutput != nil {
 			view = fmt.Sprintf("%s \n 🚀 %s %s", b.installOutput, b.framework, "has been installed. Press `Enter` to quit. ")
 		}
 	}
