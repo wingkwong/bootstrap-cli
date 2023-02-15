@@ -6,12 +6,14 @@ import (
 )
 
 type Item struct {
-	title, desc, command, commandArgs string
+	title, name, desc, command, commandArgs string
 }
 
 func (i Item) Title() string { return i.title }
 
 func (i Item) Description() string { return i.desc }
+
+func (i Item) Name() string { return i.name }
 
 func (i Item) Command() string { return i.command }
 

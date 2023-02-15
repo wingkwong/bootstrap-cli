@@ -57,7 +57,7 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 
 				if ok {
 					b.state = installState
-					b.framework = item.title
+					b.framework = item.name
 					b.isInstalling = true
 					var args = strings.Split(item.commandArgs, " ")
 					c := exec.Command(item.command, args...)

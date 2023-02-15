@@ -99,7 +99,8 @@ func New() Bubble {
 	items = []list.Item{}
 	for _, v := range _templates.FRONTEND_TEMPLATES {
 		items = append(items, Item{
-			title:       v.Title,
+			title:       "🔵 " + v.Title,
+			name:        v.Title,
 			desc:        v.Desc,
 			command:     v.Command,
 			commandArgs: v.CommandArgs,
@@ -121,7 +122,8 @@ func New() Bubble {
 	items = []list.Item{}
 	for _, v := range _templates.BACKEND_TEMPLATES {
 		items = append(items, Item{
-			title:       v.Title,
+			title:       "🟠 " + v.Title,
+			name:        v.Title,
 			desc:        v.Desc,
 			command:     v.Command,
 			commandArgs: v.CommandArgs,
