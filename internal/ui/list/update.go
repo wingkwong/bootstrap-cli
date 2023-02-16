@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/bubbles/key"
+	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	_constants "github.com/wingkwong/bootstrap-cli/internal/constants"
@@ -14,6 +15,17 @@ import (
 type installFinishedMsg struct {
 	err error
 	out bytes.Buffer
+}
+
+func (b Bubble) getTemplateList() list.Model {
+	if b.frameworkType == _constants.FRONTEND_FRAMEWORKS {
+		return b.frontendTemplateList
+	} else if b.frameworkType == _constants.BACKEND_FRAMEWORKS {
+		return b.backendTemplateList
+	} else if b.frameworkType == _constants.DOCKER_FRAMEWORKS {
+		return b.dockerTemplateList
+	}
+	return list.Model{}
 }
 
 func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
@@ -37,26 +49,21 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 	case tea.KeyMsg:
 		switch {
 		case key.Matches(msg, selectListItemKey):
+			var templateList list.Model
 			if b.state == navigationState {
 				item, ok := b.navigationList.SelectedItem().(Item)
 				if ok {
 					b.frameworkType = item.title
 					b.state = templateState
 					// point to the first item
-					b.frontendTemplateList.ResetSelected()
-					b.backendTemplateList.ResetSelected()
-					b.dockerTemplateList.ResetSelected()
+					templateList = b.getTemplateList()
+					templateList.ResetSelected()
 				}
 			} else if b.state == templateState {
+				templateList = b.getTemplateList()
 				var item Item
 				var ok bool
-				if b.frameworkType == _constants.FRONTEND_FRAMEWORKS {
-					item, ok = b.frontendTemplateList.SelectedItem().(Item)
-				} else if b.frameworkType == _constants.BACKEND_FRAMEWORKS {
-					item, ok = b.backendTemplateList.SelectedItem().(Item)
-				} else if b.frameworkType == _constants.DOCKER_FRAMEWORKS {
-					item, ok = b.dockerTemplateList.SelectedItem().(Item)
-				}
+				item, ok = templateList.SelectedItem().(Item)
 				if ok {
 					if b.frameworkType == _constants.DOCKER_FRAMEWORKS {
 						b.state = inputState
