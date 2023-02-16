@@ -58,16 +58,25 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 					item, ok = b.dockerTemplateList.SelectedItem().(Item)
 				}
 				if ok {
+					if b.frameworkType == _constants.DOCKER_FRAMEWORKS {
+						b.state = inputState
+					} else {
+						b.state = installState
+						b.framework = item.name
+						b.isInstalling = true
+						var args = strings.Split(item.commandArgs, " ")
+						c := exec.Command(item.command, args...)
+						var out bytes.Buffer
+						c.Stdout = &out
+						return b, tea.ExecProcess(c, func(err error) tea.Msg {
+							return installFinishedMsg{err, out}
+						})
+					}
+				}
+			} else if b.state == inputState {
+				if b.dockerTemplateInputs.IsFinished() {
+					// TODO: get inputs
 					b.state = installState
-					b.framework = item.name
-					b.isInstalling = true
-					var args = strings.Split(item.commandArgs, " ")
-					c := exec.Command(item.command, args...)
-					var out bytes.Buffer
-					c.Stdout = &out
-					return b, tea.ExecProcess(c, func(err error) tea.Msg {
-						return installFinishedMsg{err, out}
-					})
 				}
 			} else {
 				return b, tea.Quit
@@ -89,6 +98,9 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 	cmds = append(cmds, cmd)
 
 	b.dockerTemplateList, cmd = b.dockerTemplateList.Update(msg)
+	cmds = append(cmds, cmd)
+
+	b.dockerTemplateInputs, cmd = b.dockerTemplateInputs.Update(msg)
 	cmds = append(cmds, cmd)
 
 	return b, tea.Batch(cmds...)
