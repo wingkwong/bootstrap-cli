@@ -6,6 +6,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	_constants "github.com/wingkwong/bootstrap-cli/internal/constants"
 	_templates "github.com/wingkwong/bootstrap-cli/internal/templates"
+	_inputs "github.com/wingkwong/bootstrap-cli/internal/ui/inputs"
 )
 
 var (
@@ -19,6 +20,7 @@ const (
 	navigationState sessionState = iota
 	templateState
 	installState
+	inputState
 )
 
 type Bubble struct {
@@ -26,6 +28,7 @@ type Bubble struct {
 	frontendTemplateList list.Model
 	backendTemplateList  list.Model
 	dockerTemplateList   list.Model
+	dockerTemplateInputs _inputs.Bubble
 	frameworkType        string
 	framework            string
 	installOutput        []byte
@@ -80,6 +83,7 @@ func New() Bubble {
 	var frontendTemplateList list.Model
 	var backendTemplateList list.Model
 	var dockerTemplateList list.Model
+	var dockerTemplateInputs _inputs.Bubble
 	var items []list.Item
 
 	// navigation
@@ -169,6 +173,8 @@ func New() Bubble {
 	dockerTemplateList.Styles.PaginationStyle = paginationStyle
 	dockerTemplateList.Styles.HelpStyle = helpStyle
 
+	dockerTemplateInputs = _inputs.InitialModel()
+
 	s := spinner.New()
 	s.Spinner = spinner.Dot
 	s.Style = spinnerStyle
@@ -178,6 +184,7 @@ func New() Bubble {
 		frontendTemplateList: frontendTemplateList,
 		backendTemplateList:  backendTemplateList,
 		dockerTemplateList:   dockerTemplateList,
+		dockerTemplateInputs: dockerTemplateInputs,
 		spinner:              s,
 		isInstalling:         false,
 	}
