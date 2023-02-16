@@ -173,7 +173,7 @@ func New() Bubble {
 	dockerTemplateList.Styles.PaginationStyle = paginationStyle
 	dockerTemplateList.Styles.HelpStyle = helpStyle
 
-	dockerTemplateInputs = _inputs.InitialModel()
+	dockerTemplateInputs = _inputs.NewMSSQLInputModel()
 
 	s := spinner.New()
 	s.Spinner = spinner.Dot
