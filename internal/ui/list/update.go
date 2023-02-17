@@ -55,9 +55,11 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 				if ok {
 					b.frameworkType = item.title
 					b.state = templateState
+					// TODO: refactor
 					// point to the first item
-					templateList = b.getTemplateList()
-					templateList.ResetSelected()
+					b.frontendTemplateList.ResetSelected()
+					b.backendTemplateList.ResetSelected()
+					b.dockerTemplateList.ResetSelected()
 				}
 			} else if b.state == templateState {
 				templateList = b.getTemplateList()
