@@ -90,8 +90,9 @@ func New() Bubble {
 	items = []list.Item{
 		Item{title: _constants.FRONTEND_FRAMEWORKS, desc: _constants.FRONTEND_FRAMEWORKS_DESC},
 		Item{title: _constants.BACKEND_FRAMEWORKS, desc: _constants.BACKEND_FRAMEWORKS_DESC},
-		Item{title: _constants.KUBERNETES_FRAMEWORKS, desc: _constants.KUBERNETES_FRAMEWORKS_DESC},
-		Item{title: _constants.DOCKER_FRAMEWORKS, desc: _constants.DOCKER_FRAMEWORKS_DESC},
+		// TODO: hide at this moment
+		// Item{title: _constants.KUBERNETES_FRAMEWORKS, desc: _constants.KUBERNETES_FRAMEWORKS_DESC},
+		// Item{title: _constants.DOCKER_FRAMEWORKS, desc: _constants.DOCKER_FRAMEWORKS_DESC},
 	}
 	listDelegate := list.NewDefaultDelegate()
 	listDelegate.Styles.SelectedTitle = delegateStyle
@@ -150,8 +151,7 @@ func New() Bubble {
 	backendTemplateList.Styles.PaginationStyle = paginationStyle
 	backendTemplateList.Styles.HelpStyle = helpStyle
 
-	// docker
-
+	// docker (TODO)
 	items = []list.Item{}
 	for _, v := range _templates.DOCKER_TEMPLATES {
 		items = append(items, Item{
