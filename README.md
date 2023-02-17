@@ -30,10 +30,10 @@ go install github.com/wingkwong/bootstrap-cli@latest
 - express
 - koa
 
-### 📕 Kubernetes
+<!-- ### 📕 Kubernetes
 
 Coming soon.
 
 ### 📒 Docker 
 
-Coming soon.
+Coming soon. -->
