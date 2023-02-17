@@ -35,7 +35,7 @@ brews:
     commit_author:
       name: wingkwong
       email: wingkwong.code@gmail.com
-    folder: Formula
+    folder: formula
     caveats: "A minimalistic CLI to bootstrap projects with different frameworks."
     homepage: "https://github.com/wingkwong/bootstrap-cli"
     description: "A minimalistic CLI to bootstrap projects with different frameworks."
