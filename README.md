@@ -2,7 +2,7 @@
 
 Bootstrapping your projects by one CLI.
 
-![demo](https://user-images.githubusercontent.com/35857179/218762583-31af7925-8ba5-4c06-b602-9c282c204303.gif)
+![demo](https://user-images.githubusercontent.com/35857179/219651301-cfa1d385-b215-43c8-be65-68b88c1139d0.gif)
 
 ## 💻 Installation
 
