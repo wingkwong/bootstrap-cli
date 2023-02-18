@@ -24,18 +24,21 @@ const (
 )
 
 type Bubble struct {
-	navigationList       list.Model
-	frontendTemplateList list.Model
-	backendTemplateList  list.Model
-	dockerTemplateList   list.Model
-	dockerTemplateInputs _inputs.Bubble
-	frameworkType        string
-	framework            string
-	installOutput        []byte
-	installError         error
-	isInstalling         bool
-	spinner              spinner.Model
-	state                sessionState
+	navigationList         list.Model
+	frontendTemplateList   list.Model
+	backendTemplateList    list.Model
+	dockerTemplateList     list.Model
+	frontendTemplateInputs []_inputs.Bubble
+	backendTemplateInputs  []_inputs.Bubble
+	dockerTemplateInputs   []_inputs.Bubble
+	selectedInputs         _inputs.Bubble
+	frameworkType          string
+	framework              string
+	installOutput          []byte
+	installError           error
+	isInstalling           bool
+	spinner                spinner.Model
+	state                  sessionState
 }
 
 func (b Bubble) Init() tea.Cmd {
@@ -83,7 +86,9 @@ func New() Bubble {
 	var frontendTemplateList list.Model
 	var backendTemplateList list.Model
 	var dockerTemplateList list.Model
-	var dockerTemplateInputs _inputs.Bubble
+	var frontendTemplateInputs []_inputs.Bubble
+	var backendTemplateInputs []_inputs.Bubble
+	var dockerTemplateInputs []_inputs.Bubble
 	var items []list.Item
 
 	// navigation
@@ -110,12 +115,14 @@ func New() Bubble {
 	items = []list.Item{}
 	for _, v := range _templates.FRONTEND_TEMPLATES {
 		items = append(items, Item{
+			id:          v.Id,
 			title:       "🔵 " + v.Title,
 			name:        v.Title,
 			desc:        v.Desc,
 			command:     v.Command,
 			commandArgs: v.CommandArgs,
 		})
+		frontendTemplateInputs = append(frontendTemplateInputs, _inputs.NewViteInputModel())
 	}
 
 	listDelegate.Styles.SelectedTitle = frontendDelegateStyle
@@ -133,12 +140,14 @@ func New() Bubble {
 	items = []list.Item{}
 	for _, v := range _templates.BACKEND_TEMPLATES {
 		items = append(items, Item{
+			id:          v.Id,
 			title:       "🟠 " + v.Title,
 			name:        v.Title,
 			desc:        v.Desc,
 			command:     v.Command,
 			commandArgs: v.CommandArgs,
 		})
+		backendTemplateInputs = append(backendTemplateInputs, _inputs.NewViteInputModel())
 	}
 	listDelegate.Styles.SelectedTitle = backendDelegateStyle
 	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy()
@@ -155,6 +164,7 @@ func New() Bubble {
 	items = []list.Item{}
 	for _, v := range _templates.DOCKER_TEMPLATES {
 		items = append(items, Item{
+			id:          v.Id,
 			title:       "🟡 " + v.Title,
 			name:        v.Title,
 			desc:        v.Desc,
@@ -173,19 +183,19 @@ func New() Bubble {
 	dockerTemplateList.Styles.PaginationStyle = paginationStyle
 	dockerTemplateList.Styles.HelpStyle = helpStyle
 
-	dockerTemplateInputs = _inputs.NewMSSQLInputModel()
-
 	s := spinner.New()
 	s.Spinner = spinner.Dot
 	s.Style = spinnerStyle
 
 	return Bubble{
-		navigationList:       navigationList,
-		frontendTemplateList: frontendTemplateList,
-		backendTemplateList:  backendTemplateList,
-		dockerTemplateList:   dockerTemplateList,
-		dockerTemplateInputs: dockerTemplateInputs,
-		spinner:              s,
-		isInstalling:         false,
+		navigationList:         navigationList,
+		frontendTemplateList:   frontendTemplateList,
+		backendTemplateList:    backendTemplateList,
+		dockerTemplateList:     dockerTemplateList,
+		frontendTemplateInputs: frontendTemplateInputs,
+		backendTemplateInputs:  backendTemplateInputs,
+		dockerTemplateInputs:   dockerTemplateInputs,
+		spinner:                s,
+		isInstalling:           false,
 	}
 }
