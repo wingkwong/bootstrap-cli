@@ -10,6 +10,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	_constants "github.com/wingkwong/bootstrap-cli/internal/constants"
+	_inputs "github.com/wingkwong/bootstrap-cli/internal/ui/inputs"
 )
 
 type installFinishedMsg struct {
@@ -26,6 +27,17 @@ func (b Bubble) getTemplateList() list.Model {
 		return b.dockerTemplateList
 	}
 	return list.Model{}
+}
+
+func (b Bubble) getTemplateInputs(id int) _inputs.Bubble {
+	if b.frameworkType == _constants.FRONTEND_FRAMEWORKS {
+		return b.frontendTemplateInputs[id]
+	} else if b.frameworkType == _constants.BACKEND_FRAMEWORKS {
+		return b.backendTemplateInputs[id]
+	} else if b.frameworkType == _constants.DOCKER_FRAMEWORKS {
+		return b.dockerTemplateInputs[id]
+	}
+	return _inputs.Bubble{}
 }
 
 func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
@@ -50,6 +62,8 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 		switch {
 		case key.Matches(msg, selectListItemKey):
 			var templateList list.Model
+			var item Item
+			var ok bool
 			if b.state == navigationState {
 				item, ok := b.navigationList.SelectedItem().(Item)
 				if ok {
@@ -63,29 +77,25 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 				}
 			} else if b.state == templateState {
 				templateList = b.getTemplateList()
-				var item Item
-				var ok bool
 				item, ok = templateList.SelectedItem().(Item)
 				if ok {
-					if b.frameworkType == _constants.DOCKER_FRAMEWORKS {
-						b.state = inputState
-					} else {
-						b.state = installState
-						b.framework = item.name
-						b.isInstalling = true
-						var args = strings.Split(item.commandArgs, " ")
-						c := exec.Command(item.command, args...)
-						var out bytes.Buffer
-						c.Stdout = &out
-						return b, tea.ExecProcess(c, func(err error) tea.Msg {
-							return installFinishedMsg{err, out}
-						})
-					}
+					b.selectedInputs = b.getTemplateInputs(item.id)
+					b.state = inputState
 				}
 			} else if b.state == inputState {
-				if b.dockerTemplateInputs.IsFinished() {
-					// TODO: get inputs
+				if b.selectedInputs.IsFinished() {
+					// TODO: get inputs val
+					item, ok = templateList.SelectedItem().(Item)
 					b.state = installState
+					b.framework = item.name
+					b.isInstalling = true
+					var args = strings.Split(item.commandArgs, " ")
+					c := exec.Command(item.command, args...)
+					var out bytes.Buffer
+					c.Stdout = &out
+					return b, tea.ExecProcess(c, func(err error) tea.Msg {
+						return installFinishedMsg{err, out}
+					})
 				}
 			} else {
 				return b, tea.Quit
@@ -109,7 +119,7 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 	b.dockerTemplateList, cmd = b.dockerTemplateList.Update(msg)
 	cmds = append(cmds, cmd)
 
-	b.dockerTemplateInputs, cmd = b.dockerTemplateInputs.Update(msg)
+	b.selectedInputs, cmd = b.selectedInputs.Update(msg)
 	cmds = append(cmds, cmd)
 
 	return b, tea.Batch(cmds...)
