@@ -85,17 +85,20 @@ func (b Bubble) Update(msg tea.Msg) (Bubble, tea.Cmd) {
 			} else if b.state == inputState {
 				if b.selectedInputs.IsFinished() {
 					// TODO: get inputs val
+					templateList = b.getTemplateList()
 					item, ok = templateList.SelectedItem().(Item)
-					b.state = installState
-					b.framework = item.name
-					b.isInstalling = true
-					var args = strings.Split(item.commandArgs, " ")
-					c := exec.Command(item.command, args...)
-					var out bytes.Buffer
-					c.Stdout = &out
-					return b, tea.ExecProcess(c, func(err error) tea.Msg {
-						return installFinishedMsg{err, out}
-					})
+					if ok {
+						b.state = installState
+						b.framework = item.name
+						b.isInstalling = true
+						var args = strings.Split(item.commandArgs, " ")
+						c := exec.Command(item.command, args...)
+						var out bytes.Buffer
+						c.Stdout = &out
+						return b, tea.ExecProcess(c, func(err error) tea.Msg {
+							return installFinishedMsg{err, out}
+						})
+					}
 				}
 			} else {
 				return b, tea.Quit
