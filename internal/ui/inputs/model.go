@@ -13,4 +13,4 @@ type Bubble struct {
 
 func (b Bubble) IsFinished() bool { return b.finished }
 
-func (b Bubble) getInputs() []textinput.Model { return b.inputs }
+func (b Bubble) GetInputs() []textinput.Model { return b.inputs }
