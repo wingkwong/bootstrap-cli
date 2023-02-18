@@ -4,6 +4,32 @@ import (
 	"github.com/charmbracelet/bubbles/textinput"
 )
 
+func NewViteInputModel() Bubble {
+	b := Bubble{
+		inputs: make([]textinput.Model, 2),
+	}
+
+	var t textinput.Model
+	for i := range b.inputs {
+		t = textinput.New()
+		t.CursorStyle = cursorStyle
+		t.CharLimit = 32
+
+		switch i {
+		case 0:
+			t.Placeholder = "Enter App Name"
+			t.Focus()
+			t.PromptStyle = focusedStyle
+			t.TextStyle = focusedStyle
+		case 1:
+			t.Placeholder = "Enter the directory"
+		}
+		b.inputs[i] = t
+	}
+
+	return b
+}
+
 func NewMSSQLInputModel() Bubble {
 	b := Bubble{
 		inputs: make([]textinput.Model, 5),
