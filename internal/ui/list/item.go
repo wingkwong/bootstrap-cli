@@ -6,8 +6,11 @@ import (
 )
 
 type Item struct {
+	id                                      int
 	title, name, desc, command, commandArgs string
 }
+
+func (i Item) Id() int { return i.id }
 
 func (i Item) Title() string { return i.title }
 
