@@ -27,9 +27,7 @@ func (b Bubble) View() string {
 			view = fmt.Sprintf("%s \n 🚀 %s %s", b.installOutput, b.framework, "has been installed. Press `Enter` to quit. ")
 		}
 	} else if b.state == inputState {
-		if b.frameworkType == _constants.DOCKER_FRAMEWORKS {
-			view = b.dockerTemplateInputs.View()
-		}
+		view = b.selectedInputs.View()
 	}
 	return bubbleStyle.Render(view)
 }
