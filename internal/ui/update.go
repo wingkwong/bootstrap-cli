@@ -6,11 +6,11 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/bubbles/key"
-	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	_constants "github.com/wingkwong/bootstrap-cli/internal/constants"
 	_inputs "github.com/wingkwong/bootstrap-cli/internal/ui/inputs"
+	_list "github.com/wingkwong/bootstrap-cli/internal/ui/list"
 )
 
 type installFinishedMsg struct {
@@ -18,15 +18,15 @@ type installFinishedMsg struct {
 	out bytes.Buffer
 }
 
-func (b Bubble) getTemplateList() list.Model {
+func (b *Bubble) getTemplateList() _list.Bubble {
 	if b.frameworkType == _constants.FRONTEND_FRAMEWORKS {
-		return b.frontendTemplateList.List
+		return b.frontendTemplateList
 	} else if b.frameworkType == _constants.BACKEND_FRAMEWORKS {
-		return b.backendTemplateList.List
+		return b.backendTemplateList
 	} else if b.frameworkType == _constants.DOCKER_FRAMEWORKS {
-		return b.dockerTemplateList.List
+		return b.dockerTemplateList
 	}
-	return list.Model{}
+	return b.navigationList
 }
 
 func (b Bubble) getTemplateInputs(id int) _inputs.Bubble {
@@ -53,42 +53,47 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return b, tea.Quit
 		}
 	case tea.WindowSizeMsg:
+		// FIXME:
 		h, w := lipgloss.NewStyle().GetFrameSize()
 		vh = msg.Height - h
 		vw = msg.Width - w
 		b.frontendTemplateList.SetSize(vw, vh)
 		b.backendTemplateList.SetSize(vw, vh)
 		b.dockerTemplateList.SetSize(vw, vh)
-		return b, nil
 	case tea.KeyMsg:
 		switch {
-		case key.Matches(msg, selectListItemKey):
-			var templateList list.Model
+		case key.Matches(msg, b.keys.Quit):
+			return b, tea.Quit
+		case key.Matches(msg, b.keys.Exit):
+			// TODO: quit only not in filter mode
+			return b, tea.Quit
+		case key.Matches(msg, b.keys.SelectListItemKey):
 			var item Item
 			var ok bool
+			var templateList = b.getTemplateList()
 			if b.state == navigationState {
+				b.setAllInactive()
+				b.navigationList.SetActive(true)
 				item, ok := b.navigationList.List.SelectedItem().(Item)
 				if ok {
 					b.frameworkType = item.title
 					b.state = templateState
-					// TODO: refactor
-					// point to the first item
-					b.frontendTemplateList.List.ResetSelected()
-					b.backendTemplateList.List.ResetSelected()
-					b.dockerTemplateList.List.ResetSelected()
 				}
+
 			} else if b.state == templateState {
-				templateList = b.getTemplateList()
-				item, ok = templateList.SelectedItem().(Item)
+				b.setAllInactive()
+				templateList.SetActive(true)
+				item, ok = templateList.List.SelectedItem().(Item)
 				if ok {
 					b.selectedInputs = b.getTemplateInputs(item.id)
 					b.state = inputState
 				}
 			} else if b.state == inputState {
+				b.setAllInactive()
 				if b.selectedInputs.IsFinished() {
 					// TODO: get inputs val
 					templateList = b.getTemplateList()
-					item, ok = templateList.SelectedItem().(Item)
+					item, ok = templateList.List.SelectedItem().(Item)
 					if ok {
 						b.state = installState
 						b.framework = item.name
@@ -102,8 +107,6 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 						})
 					}
 				}
-			} else {
-				return b, tea.Quit
 			}
 		}
 	default:
@@ -112,16 +115,34 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return b, cmd
 	}
 
-	b.navigationList.List, cmd = b.navigationList.List.Update(msg)
+	if b.state == navigationState {
+		b.navigationList.List, cmd = b.navigationList.List.Update(msg)
+		cmds = append(cmds, cmd)
+	} else if b.state == templateState {
+		if b.frameworkType == _constants.FRONTEND_FRAMEWORKS {
+			b.frontendTemplateList.List, cmd = b.frontendTemplateList.List.Update(msg)
+			cmds = append(cmds, cmd)
+		} else if b.frameworkType == _constants.BACKEND_FRAMEWORKS {
+			b.backendTemplateList.List, cmd = b.backendTemplateList.List.Update(msg)
+			cmds = append(cmds, cmd)
+		} else if b.frameworkType == _constants.DOCKER_FRAMEWORKS {
+			b.dockerTemplateList.List, cmd = b.dockerTemplateList.List.Update(msg)
+			cmds = append(cmds, cmd)
+		}
+	} else if b.state == inputState {
+		// TODO
+	}
+
+	b.navigationList, cmd = b.navigationList.Update(msg)
 	cmds = append(cmds, cmd)
 
-	b.frontendTemplateList.List, cmd = b.frontendTemplateList.List.Update(msg)
+	b.frontendTemplateList, cmd = b.frontendTemplateList.Update(msg)
 	cmds = append(cmds, cmd)
 
-	b.backendTemplateList.List, cmd = b.backendTemplateList.List.Update(msg)
+	b.backendTemplateList, cmd = b.backendTemplateList.Update(msg)
 	cmds = append(cmds, cmd)
 
-	b.dockerTemplateList.List, cmd = b.dockerTemplateList.List.Update(msg)
+	b.dockerTemplateList, cmd = b.dockerTemplateList.Update(msg)
 	cmds = append(cmds, cmd)
 
 	b.selectedInputs, cmd = b.selectedInputs.Update(msg)
