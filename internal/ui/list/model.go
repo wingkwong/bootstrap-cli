@@ -13,6 +13,12 @@ func New(
 	list _list.Model,
 	active bool,
 ) Bubble {
+
+	list.SetShowStatusBar(false)
+	list.SetFilteringEnabled(true)
+	list.Styles.PaginationStyle = paginationStyle
+	list.Styles.HelpStyle = helpStyle
+
 	return Bubble{
 		List:   list,
 		Active: active,
