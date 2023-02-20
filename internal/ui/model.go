@@ -39,6 +39,7 @@ type Bubble struct {
 	isInstalling           bool
 	spinner                spinner.Model
 	state                  sessionState
+	keys                   KeyMap
 }
 
 func (b Bubble) GetFrameworkType() string {
@@ -55,6 +56,22 @@ func (b Bubble) GetSelecteNavigationItem() Item {
 		return item
 	}
 	return Item{}
+}
+
+func (b *Bubble) setAllInactive() {
+	b.navigationList.SetActive(false)
+	b.frontendTemplateList.SetActive(false)
+	b.backendTemplateList.SetActive(false)
+	b.dockerTemplateList.SetActive(false)
+	for i, _ := range b.frontendTemplateInputs {
+		b.frontendTemplateInputs[i].SetActive((false))
+	}
+	for i, _ := range b.backendTemplateInputs {
+		b.frontendTemplateInputs[i].SetActive((false))
+	}
+	for i, _ := range b.dockerTemplateInputs {
+		b.frontendTemplateInputs[i].SetActive((false))
+	}
 }
 
 func New() Bubble {
@@ -158,5 +175,6 @@ func New() Bubble {
 		dockerTemplateInputs:   dockerTemplateInputs,
 		spinner:                s,
 		isInstalling:           false,
+		keys:                   DefaultKeyMap(),
 	}
 }
