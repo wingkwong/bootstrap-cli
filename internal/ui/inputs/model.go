@@ -5,12 +5,17 @@ import (
 )
 
 type Bubble struct {
-	focusIndex int
-	inputs     []textinput.Model
-	cursorMode textinput.CursorMode
-	finished   bool
+	FocusIndex int
+	Inputs     []textinput.Model
+	CursorMode textinput.CursorMode
+	Finished   bool
+	Active     bool
 }
 
-func (b Bubble) IsFinished() bool { return b.finished }
+func (b Bubble) IsFinished() bool { return b.Finished }
 
-func (b Bubble) GetInputs() []textinput.Model { return b.inputs }
+func (b Bubble) GetInputs() []textinput.Model { return b.Inputs }
+
+func (b *Bubble) SetActive(v bool) {
+	b.Active = v
+}

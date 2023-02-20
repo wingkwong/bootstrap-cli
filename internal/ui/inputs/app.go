@@ -6,11 +6,11 @@ import (
 
 func NewViteInputModel() Bubble {
 	b := Bubble{
-		inputs: make([]textinput.Model, 2),
+		Inputs: make([]textinput.Model, 2),
 	}
 
 	var t textinput.Model
-	for i := range b.inputs {
+	for i := range b.Inputs {
 		t = textinput.New()
 		t.CursorStyle = cursorStyle
 		t.CharLimit = 32
@@ -24,7 +24,7 @@ func NewViteInputModel() Bubble {
 		case 1:
 			t.Placeholder = "Enter the directory"
 		}
-		b.inputs[i] = t
+		b.Inputs[i] = t
 	}
 
 	return b
@@ -32,11 +32,11 @@ func NewViteInputModel() Bubble {
 
 func NewMSSQLInputModel() Bubble {
 	b := Bubble{
-		inputs: make([]textinput.Model, 5),
+		Inputs: make([]textinput.Model, 5),
 	}
 
 	var t textinput.Model
-	for i := range b.inputs {
+	for i := range b.Inputs {
 		t = textinput.New()
 		t.CursorStyle = cursorStyle
 		t.CharLimit = 32
@@ -59,7 +59,7 @@ func NewMSSQLInputModel() Bubble {
 			t.Placeholder = "port"
 		}
 
-		b.inputs[i] = t
+		b.Inputs[i] = t
 	}
 
 	return b
