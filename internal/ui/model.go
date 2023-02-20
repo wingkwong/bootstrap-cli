@@ -83,10 +83,6 @@ func New() Bubble {
 	navigationList = list.New(items, listDelegate, defaultWidth, listHeight)
 	navigationList.Title = _constants.NAVIGATION_TEMPLATE_LIST_TITLE
 	navigationList.Styles.Title = titleStyle
-	navigationList.SetShowStatusBar(false)
-	navigationList.SetFilteringEnabled(true)
-	navigationList.Styles.PaginationStyle = paginationStyle
-	navigationList.Styles.HelpStyle = helpStyle
 
 	// frontend
 	items = []list.Item{}
@@ -108,10 +104,6 @@ func New() Bubble {
 	frontendTemplateList.Title = _constants.FRONTEND_TEMPLATE_LIST_TITLE
 
 	frontendTemplateList.Styles.Title = frontendTitleStyle
-	frontendTemplateList.SetShowStatusBar(false)
-	frontendTemplateList.SetFilteringEnabled(true)
-	frontendTemplateList.Styles.PaginationStyle = paginationStyle
-	frontendTemplateList.Styles.HelpStyle = helpStyle
 
 	// backend
 	items = []list.Item{}
@@ -132,10 +124,6 @@ func New() Bubble {
 	backendTemplateList.Title = _constants.BACKEND_TEMPLATE_LIST_TITLE
 
 	backendTemplateList.Styles.Title = backendTitleStyle
-	backendTemplateList.SetShowStatusBar(false)
-	backendTemplateList.SetFilteringEnabled(true)
-	backendTemplateList.Styles.PaginationStyle = paginationStyle
-	backendTemplateList.Styles.HelpStyle = helpStyle
 
 	// docker (TODO)
 	items = []list.Item{}
@@ -155,10 +143,6 @@ func New() Bubble {
 	dockerTemplateList.Title = _constants.DOCKER_TEMPLATE_LIST_TITLE
 
 	dockerTemplateList.Styles.Title = dockerTitleStyle
-	dockerTemplateList.SetShowStatusBar(false)
-	dockerTemplateList.SetFilteringEnabled(true)
-	dockerTemplateList.Styles.PaginationStyle = paginationStyle
-	dockerTemplateList.Styles.HelpStyle = helpStyle
 
 	s := spinner.New()
 	s.Spinner = spinner.Dot

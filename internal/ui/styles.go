@@ -15,8 +15,6 @@ var (
 	frontendDelegateStyle = list.NewDefaultDelegate().Styles.SelectedTitle.Foreground(lipgloss.Color("#ADD8E6")).BorderLeftForeground(lipgloss.Color("#FFFFE0"))
 	backendDelegateStyle  = list.NewDefaultDelegate().Styles.SelectedTitle.Foreground(lipgloss.Color("#FFA500")).BorderLeftForeground(lipgloss.Color("#FFA500"))
 	dockerDelegateStyle   = list.NewDefaultDelegate().Styles.SelectedTitle.Foreground(lipgloss.Color("#FDFD96")).BorderLeftForeground(lipgloss.Color("#FDFD96"))
-	paginationStyle       = list.DefaultStyles().PaginationStyle.PaddingLeft(4)
-	helpStyle             = list.DefaultStyles().HelpStyle.PaddingLeft(4).PaddingBottom(1)
 	quitTextStyle         = lipgloss.NewStyle().Margin(1, 0, 2, 4)
 	spinnerStyle          = lipgloss.NewStyle().Foreground(lipgloss.Color("205"))
 	listHeight            = 20
