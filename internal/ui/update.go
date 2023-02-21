@@ -58,16 +58,20 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		vw = msg.Width - w
 		b.resizeAllBubbles(vw, vh)
 	case tea.KeyMsg:
+		templateList := b.getTemplateList()
 		switch {
 		case key.Matches(msg, b.keys.Quit):
 			return b, tea.Quit
 		case key.Matches(msg, b.keys.Exit):
-			// TODO: quit only not in filter mode
-			return b, tea.Quit
+			if !templateList.IsFiltering() {
+				return b, tea.Quit
+			}
 		case key.Matches(msg, b.keys.SelectListItemKey):
+			if templateList.IsFiltering() {
+				return b, nil
+			}
 			var item Item
 			var ok bool
-			var templateList = b.getTemplateList()
 			if b.state == navigationState {
 				b.deactivateAllBubbles()
 				b.navigationList.SetActive(true)
@@ -89,7 +93,6 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				b.deactivateAllBubbles()
 				if b.selectedInputs.IsFinished() {
 					// TODO: get inputs val
-					templateList = b.getTemplateList()
 					item, ok = templateList.List.SelectedItem().(Item)
 					if ok {
 						b.state = installState
