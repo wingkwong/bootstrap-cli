@@ -3,11 +3,9 @@ package ui
 import "github.com/charmbracelet/bubbles/key"
 
 type KeyMap struct {
-	Quit           key.Binding
-	Exit           key.Binding
-	SelectListItem key.Binding
-	Back           key.Binding
-	Next           key.Binding
+	Quit              key.Binding
+	Exit              key.Binding
+	SelectListItemKey key.Binding
 }
 
 func DefaultKeyMap() KeyMap {
@@ -18,7 +16,7 @@ func DefaultKeyMap() KeyMap {
 		Exit: key.NewBinding(
 			key.WithKeys("q"),
 		),
-		SelectListItem: key.NewBinding(
+		SelectListItemKey: key.NewBinding(
 			key.WithKeys("enter"),
 		),
 	}

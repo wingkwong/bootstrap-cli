@@ -5,5 +5,5 @@ import (
 )
 
 func (b Bubble) Init() tea.Cmd {
-	return b.l.Init()
+	return b.spinner.Tick
 }
