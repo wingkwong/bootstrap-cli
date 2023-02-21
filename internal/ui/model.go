@@ -63,13 +63,13 @@ func (b *Bubble) deactivateAllBubbles() {
 	b.frontendTemplateList.SetActive(false)
 	b.backendTemplateList.SetActive(false)
 	b.dockerTemplateList.SetActive(false)
-	for i, _ := range b.frontendTemplateInputs {
+	for i := range b.frontendTemplateInputs {
 		b.frontendTemplateInputs[i].SetActive((false))
 	}
-	for i, _ := range b.backendTemplateInputs {
+	for i := range b.backendTemplateInputs {
 		b.frontendTemplateInputs[i].SetActive((false))
 	}
-	for i, _ := range b.dockerTemplateInputs {
+	for i := range b.dockerTemplateInputs {
 		b.frontendTemplateInputs[i].SetActive((false))
 	}
 }
