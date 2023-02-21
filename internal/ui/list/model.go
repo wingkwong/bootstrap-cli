@@ -25,6 +25,10 @@ func New(
 	}
 }
 
+func (b Bubble) IsFiltering() bool {
+	return b.List.FilterState() == _list.Filtering
+}
+
 func (b *Bubble) SetActive(v bool) {
 	b.Active = v
 }
