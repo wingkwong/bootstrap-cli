@@ -2,14 +2,18 @@ package inputs
 
 import (
 	"github.com/charmbracelet/bubbles/textinput"
+	tea "github.com/charmbracelet/bubbletea"
 )
 
 type Bubble struct {
 	FocusIndex int
 	Inputs     []textinput.Model
-	CursorMode textinput.CursorMode
 	Finished   bool
 	Active     bool
+}
+
+func (b Bubble) Init() tea.Cmd {
+	return textinput.Blink
 }
 
 func (b Bubble) IsFinished() bool { return b.Finished }
