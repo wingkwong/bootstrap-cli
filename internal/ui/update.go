@@ -53,13 +53,10 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return b, tea.Quit
 		}
 	case tea.WindowSizeMsg:
-		// FIXME:
 		h, w := lipgloss.NewStyle().GetFrameSize()
-		vh = msg.Height - h
+		vh = msg.Height - h - 20
 		vw = msg.Width - w
-		b.frontendTemplateList.SetSize(vw, vh)
-		b.backendTemplateList.SetSize(vw, vh)
-		b.dockerTemplateList.SetSize(vw, vh)
+		b.resizeAllBubbles(vw, vh)
 	case tea.KeyMsg:
 		switch {
 		case key.Matches(msg, b.keys.Quit):

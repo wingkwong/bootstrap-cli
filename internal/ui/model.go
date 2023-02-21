@@ -74,6 +74,12 @@ func (b *Bubble) setAllInactive() {
 	}
 }
 
+func (b *Bubble) resizeAllBubbles(vw int, vh int) {
+	b.frontendTemplateList.SetSize(vw, vh)
+	b.backendTemplateList.SetSize(vw, vh)
+	b.dockerTemplateList.SetSize(vw, vh)
+}
+
 func New() Bubble {
 	const defaultWidth = 40
 	var navigationList list.Model
