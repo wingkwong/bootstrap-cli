@@ -58,7 +58,7 @@ func (b Bubble) GetSelecteNavigationItem() Item {
 	return Item{}
 }
 
-func (b *Bubble) setAllInactive() {
+func (b *Bubble) deactivateAllBubbles() {
 	b.navigationList.SetActive(false)
 	b.frontendTemplateList.SetActive(false)
 	b.backendTemplateList.SetActive(false)

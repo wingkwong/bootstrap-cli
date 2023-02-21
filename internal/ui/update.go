@@ -69,7 +69,7 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			var ok bool
 			var templateList = b.getTemplateList()
 			if b.state == navigationState {
-				b.setAllInactive()
+				b.deactivateAllBubbles()
 				b.navigationList.SetActive(true)
 				item, ok := b.navigationList.List.SelectedItem().(Item)
 				if ok {
@@ -78,7 +78,7 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				}
 
 			} else if b.state == templateState {
-				b.setAllInactive()
+				b.deactivateAllBubbles()
 				templateList.SetActive(true)
 				item, ok = templateList.List.SelectedItem().(Item)
 				if ok {
@@ -86,7 +86,7 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					b.state = inputState
 				}
 			} else if b.state == inputState {
-				b.setAllInactive()
+				b.deactivateAllBubbles()
 				if b.selectedInputs.IsFinished() {
 					// TODO: get inputs val
 					templateList = b.getTemplateList()
