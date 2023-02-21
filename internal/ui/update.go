@@ -73,24 +73,21 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			var item Item
 			var ok bool
 			if b.state == navigationState {
-				b.deactivateAllBubbles()
-				b.navigationList.SetActive(true)
 				item, ok := b.navigationList.List.SelectedItem().(Item)
 				if ok {
 					b.frameworkType = item.title
 					b.state = templateState
 				}
-
 			} else if b.state == templateState {
-				b.deactivateAllBubbles()
-				templateList.SetActive(true)
 				item, ok = templateList.List.SelectedItem().(Item)
 				if ok {
 					b.selectedInputs = b.getTemplateInputs(item.id)
 					b.state = inputState
+					b.deactivateAllBubbles()
+					b.selectedInputs.SetActive(true)
+					return b, cmd
 				}
 			} else if b.state == inputState {
-				b.deactivateAllBubbles()
 				if b.selectedInputs.IsFinished() {
 					// TODO: get inputs val
 					item, ok = templateList.List.SelectedItem().(Item)
@@ -116,9 +113,12 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	}
 
 	if b.state == navigationState {
+		b.deactivateAllBubbles()
+		b.navigationList.SetActive(true)
 		b.navigationList.List, cmd = b.navigationList.List.Update(msg)
 		cmds = append(cmds, cmd)
 	} else if b.state == templateState {
+		b.deactivateAllBubbles()
 		if b.frameworkType == _constants.FRONTEND_FRAMEWORKS {
 			b.frontendTemplateList.List, cmd = b.frontendTemplateList.List.Update(msg)
 			cmds = append(cmds, cmd)
@@ -129,8 +129,6 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			b.dockerTemplateList.List, cmd = b.dockerTemplateList.List.Update(msg)
 			cmds = append(cmds, cmd)
 		}
-	} else if b.state == inputState {
-		// TODO
 	}
 
 	b.navigationList, cmd = b.navigationList.Update(msg)
