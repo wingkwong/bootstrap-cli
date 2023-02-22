@@ -40,6 +40,7 @@ type Bubble struct {
 	spinner                spinner.Model
 	state                  sessionState
 	keys                   KeyMap
+	width                  int
 }
 
 func (b Bubble) GetFrameworkType() string {
