@@ -57,6 +57,7 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		vh = msg.Height - h - 20
 		vw = msg.Width - w
 		b.resizeAllBubbles(vw, vh)
+		b.width = vw
 	case tea.KeyMsg:
 		templateList := b.getTemplateList()
 		switch {
