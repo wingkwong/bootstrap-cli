@@ -9,7 +9,7 @@ var (
 	style                 = lipgloss.NewStyle()
 	headerAppNameStyle    = style.Background(lipgloss.Color("167")).Bold(true).Margin(0, 0).Padding(1, 1)
 	headerUrlStyle        = style.MarginLeft(1).Foreground(lipgloss.Color("167")).Background(lipgloss.Color("#FFFFFF")).Margin(0, 0).Padding(1, 1)
-	headerAppDescStyle    = style.Foreground(lipgloss.Color("243")).Padding(1, 1, 0, 1)
+	headerAppDescStyle    = style.Foreground(lipgloss.Color("243")).Padding(1, 1, 0, 0)
 	bubbleStyle           = style.Margin(1, 1)
 	titleStyle            = style.Foreground(lipgloss.Color("#FFFDF5")).Background(lipgloss.Color("#0074D9")).Padding(0, 1)
 	frontendTitleStyle    = style.Foreground(lipgloss.Color("#FFFDF5")).Background(lipgloss.Color("#0074D9")).Padding(0, 1)
