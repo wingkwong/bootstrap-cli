@@ -121,7 +121,7 @@ func New() Bubble {
 			command:     v.Command,
 			commandArgs: v.CommandArgs,
 		})
-		frontendTemplateInputs = append(frontendTemplateInputs, _inputs.NewViteInputModel())
+		frontendTemplateInputs = append(frontendTemplateInputs, _inputs.NewViteInputModel(v.Title))
 	}
 
 	listDelegate.Styles.SelectedTitle = frontendDelegateStyle
@@ -142,7 +142,7 @@ func New() Bubble {
 			command:     v.Command,
 			commandArgs: v.CommandArgs,
 		})
-		backendTemplateInputs = append(backendTemplateInputs, _inputs.NewViteInputModel())
+		backendTemplateInputs = append(backendTemplateInputs, _inputs.NewViteInputModel(v.Title))
 	}
 	listDelegate.Styles.SelectedTitle = backendDelegateStyle
 	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy()
