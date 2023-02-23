@@ -1,6 +1,8 @@
 package inputs
 
 import (
+	"fmt"
+
 	"github.com/charmbracelet/bubbles/textinput"
 )
 
@@ -34,10 +36,10 @@ func NewInputModel(data []inputBubble) Bubble {
 	return b
 }
 
-func NewViteInputModel() Bubble {
+func NewViteInputModel(title string) Bubble {
 	return NewInputModel([]inputBubble{
-		{placeholder: "Enter App Name", echoMode: textinput.EchoNormal},
-		{placeholder: "Enter the directory", echoMode: textinput.EchoNormal},
+		{placeholder: fmt.Sprintf("Enter App Name. (Default: my-%s-app)", title), echoMode: textinput.EchoNormal},
+		{placeholder: "Enter the directory. (Default: current directory)", echoMode: textinput.EchoNormal},
 	})
 }
 
