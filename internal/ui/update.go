@@ -64,7 +64,7 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case key.Matches(msg, b.keys.Quit):
 			return b, tea.Quit
 		case key.Matches(msg, b.keys.Exit):
-			if !templateList.IsFiltering() {
+			if !templateList.IsFiltering() && !b.isInputting {
 				return b, tea.Quit
 			}
 		case key.Matches(msg, b.keys.SelectListItemKey):
@@ -82,6 +82,7 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			} else if b.state == templateState {
 				item, ok = templateList.List.SelectedItem().(Item)
 				if ok {
+					b.isInputting = true
 					b.selectedInputs = b.getTemplateInputs(item.id)
 					b.framework = item.name
 					b.state = inputState
@@ -91,6 +92,7 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				}
 			} else if b.state == inputState {
 				if b.selectedInputs.IsFinished() {
+					b.isInputting = false
 					// TODO: get inputs val
 					item, ok = templateList.List.SelectedItem().(Item)
 					if ok {
