@@ -37,6 +37,7 @@ type Bubble struct {
 	installOutput          []byte
 	installError           error
 	isInstalling           bool
+	isInputting            bool
 	spinner                spinner.Model
 	state                  sessionState
 	keys                   KeyMap
