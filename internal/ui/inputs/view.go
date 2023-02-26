@@ -3,9 +3,12 @@ package inputs
 import (
 	"fmt"
 	"strings"
+
+	"github.com/charmbracelet/lipgloss"
 )
 
 func (b Bubble) View() string {
+	var wrapper = lipgloss.NewStyle().Padding(0, 1)
 	var sb strings.Builder
 
 	for i := range b.Inputs {
@@ -21,5 +24,5 @@ func (b Bubble) View() string {
 	}
 	fmt.Fprintf(&sb, "\n\n%s\n\n", *button)
 
-	return sb.String()
+	return wrapper.Render(sb.String())
 }
