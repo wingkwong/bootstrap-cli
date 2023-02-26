@@ -46,7 +46,6 @@ func (b Bubble) View() string {
 			view += fmt.Sprintf("%s \n 🚀 %s %s", b.installOutput, b.framework, "has been installed. Press `Enter` to quit. ")
 		}
 	} else if b.state == inputState {
-		view += fmt.Sprintf("Please enter the following info before installing %s.\n\n", b.framework)
 		view += b.selectedInputs.View()
 	}
 	return wrapper.Render(view)
