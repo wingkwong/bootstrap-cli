@@ -16,7 +16,7 @@ func (b Bubble) View() string {
 		mxWidth = b.width
 	}
 	wrapper := lipgloss.NewStyle().Width(mxWidth)
-	headerUrl := headerUrlStyle.Copy().Width(b.width - lipgloss.Width(headerAppName) - 5).Align(lipgloss.Right).Render(_constants.APP_REPO_URL)
+	headerUrl := headerUrlStyle.Copy().Width(b.width - lipgloss.Width(headerAppName)).Align(lipgloss.Right).Render(_constants.APP_REPO_URL)
 	var view = style.Render(lipgloss.JoinVertical(lipgloss.Top,
 		wrapper.Render(style.Render(
 			lipgloss.JoinHorizontal(
@@ -49,5 +49,5 @@ func (b Bubble) View() string {
 		view += fmt.Sprintf("Please enter the following info before installing %s.\n\n", b.framework)
 		view += b.selectedInputs.View()
 	}
-	return bubbleStyle.Render(view)
+	return wrapper.Render(view)
 }
