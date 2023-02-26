@@ -105,7 +105,7 @@ func New() Bubble {
 	}
 	listDelegate := list.NewDefaultDelegate()
 	listDelegate.Styles.SelectedTitle = delegateStyle
-	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy()
+	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy().Bold(false)
 
 	navigationList = list.New(items, listDelegate, defaultWidth, listHeight)
 	navigationList.SetShowTitle(false)
@@ -125,7 +125,7 @@ func New() Bubble {
 	}
 
 	listDelegate.Styles.SelectedTitle = frontendDelegateStyle
-	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy()
+	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy().Bold(false)
 	frontendTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
 	frontendTemplateList.SetShowTitle(false)
 
@@ -143,7 +143,7 @@ func New() Bubble {
 		backendTemplateInputs = append(backendTemplateInputs, _inputs.NewViteInputModel(v.Title))
 	}
 	listDelegate.Styles.SelectedTitle = backendDelegateStyle
-	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy()
+	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy().Bold(false)
 	backendTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
 	backendTemplateList.SetShowTitle(false)
 
@@ -160,7 +160,7 @@ func New() Bubble {
 		})
 	}
 	listDelegate.Styles.SelectedTitle = dockerDelegateStyle
-	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy()
+	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy().Bold(false)
 	dockerTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
 	dockerTemplateList.SetShowTitle(false)
 
