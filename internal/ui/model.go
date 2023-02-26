@@ -108,8 +108,7 @@ func New() Bubble {
 	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy()
 
 	navigationList = list.New(items, listDelegate, defaultWidth, listHeight)
-	navigationList.Title = _constants.NAVIGATION_TEMPLATE_LIST_TITLE
-	navigationList.Styles.Title = titleStyle
+	navigationList.SetShowTitle(false)
 
 	// frontend
 	items = []list.Item{}
@@ -128,9 +127,7 @@ func New() Bubble {
 	listDelegate.Styles.SelectedTitle = frontendDelegateStyle
 	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy()
 	frontendTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
-	frontendTemplateList.Title = _constants.FRONTEND_TEMPLATE_LIST_TITLE
-
-	frontendTemplateList.Styles.Title = frontendTitleStyle
+	frontendTemplateList.SetShowTitle(false)
 
 	// backend
 	items = []list.Item{}
@@ -148,9 +145,7 @@ func New() Bubble {
 	listDelegate.Styles.SelectedTitle = backendDelegateStyle
 	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy()
 	backendTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
-	backendTemplateList.Title = _constants.BACKEND_TEMPLATE_LIST_TITLE
-
-	backendTemplateList.Styles.Title = backendTitleStyle
+	backendTemplateList.SetShowTitle(false)
 
 	// docker (TODO)
 	items = []list.Item{}
@@ -167,9 +162,7 @@ func New() Bubble {
 	listDelegate.Styles.SelectedTitle = dockerDelegateStyle
 	listDelegate.Styles.SelectedDesc = listDelegate.Styles.SelectedTitle.Copy()
 	dockerTemplateList = list.New(items, listDelegate, defaultWidth, listHeight)
-	dockerTemplateList.Title = _constants.DOCKER_TEMPLATE_LIST_TITLE
-
-	dockerTemplateList.Styles.Title = dockerTitleStyle
+	dockerTemplateList.SetShowTitle(false)
 
 	s := spinner.New()
 	s.Spinner = spinner.Dot
