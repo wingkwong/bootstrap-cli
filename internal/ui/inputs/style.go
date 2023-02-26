@@ -1,19 +1,18 @@
 package inputs
 
 import (
-	"fmt"
-
 	"github.com/charmbracelet/lipgloss"
 )
 
 var (
-	focusedStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("205"))
+	focusedStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("167"))
 	blurredStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("240"))
 	cursorStyle         = focusedStyle.Copy()
 	noStyle             = lipgloss.NewStyle()
 	helpStyle           = blurredStyle.Copy()
 	cursorModeHelpStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("244"))
 
-	focusedButton = focusedStyle.Copy().Render("[ Submit ]")
-	blurredButton = fmt.Sprintf("[ %s ]", blurredStyle.Render("Submit"))
+	submitButton  = lipgloss.NewStyle().Width(10).Padding(1, 0).Align(lipgloss.Center)
+	focusedButton = submitButton.Foreground(lipgloss.Color("255")).Background(lipgloss.Color("167")).Render("Submit")
+	blurredButton = submitButton.Foreground(lipgloss.Color("167")).Background(lipgloss.Color("255")).Render("Submit")
 )
