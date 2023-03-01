@@ -2,6 +2,7 @@ package ui
 
 import (
 	"bytes"
+	"fmt"
 	"os/exec"
 	"strings"
 
@@ -93,13 +94,28 @@ func (b Bubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			} else if b.state == inputState {
 				if b.selectedInputs.IsFinished() {
 					b.isInputting = false
-					// TODO: get inputs val
 					item, ok = templateList.List.SelectedItem().(Item)
 					if ok {
+						var cmdArgs = item.commandArgs
+						// set app name
+						if b.selectedInputs.Inputs[0].Value() != "" {
+							cmdArgs = strings.Replace(
+								item.commandArgs,
+								fmt.Sprintf("my-%s-app", item.name),
+								b.selectedInputs.Inputs[0].Value(),
+								1)
+						}
+
 						b.state = installState
 						b.isInstalling = true
-						var args = strings.Split(item.commandArgs, " ")
+						var args = strings.Split(cmdArgs, " ")
 						c := exec.Command(item.command, args...)
+
+						// set directory
+						if b.selectedInputs.Inputs[1].Value() != "" {
+							c.Dir = b.selectedInputs.Inputs[1].Value()
+						}
+
 						var out bytes.Buffer
 						c.Stdout = &out
 						return b, tea.ExecProcess(c, func(err error) tea.Msg {
