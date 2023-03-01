@@ -20,7 +20,7 @@ func NewInputModel(data []inputBubble) Bubble {
 	for i := range b.Inputs {
 		t = textinput.New()
 		t.CursorStyle = cursorStyle
-		t.CharLimit = 32
+		t.CharLimit = 200
 		if i == 0 {
 			t.Focus()
 			t.PromptStyle = focusedStyle
