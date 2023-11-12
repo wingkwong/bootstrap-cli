@@ -19,6 +19,7 @@ var launchCmd = &cobra.Command{
 	Long:    "launches the TUI (text user interface) view for the application",
 	Aliases: []string{"tui"},
 	Run: func(cmd *cobra.Command, args []string) {
+
 		ui.Execute()
 	},
 }
